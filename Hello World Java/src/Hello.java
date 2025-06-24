@@ -2,9 +2,27 @@ public class Hello {
 
     public static void main(String[] args) {
 
-        long my_number = 2_147_483_648L;
+        byte myByte = 24;
+        short myShort = 256;
+        int myInt = 1_045;
 
-        System.out.println("This is the number: " + my_number);
+        long myLong = (long) 50_000_000_0 * 10 * (myByte + myShort + myInt);
+        System.out.println("This is the text value of the long: " + myLong);
+
+        // int myNewByteValue = (short) Byte.MIN_VALUE * 2;
+
+        // System.out.println("This is the value of my new byte value: " +
+        // myNewByteValue);
+        // long my_number = 2_147_483_648L;
+
+        // System.out.println("This is the number: " + my_number);
+
+        // Declaring multiple variables on the same line
+
+        // int first_number = 256, second_nummber = 445, third_number = 231;
+
+        // System.out.println(first_number + ", " + second_nummber + ", " +
+        // third_number);
 
         // int min_value = Integer.MIN_VALUE;
         // int max_value = Integer.MAX_VALUE;
