@@ -2,11 +2,12 @@ public class Hello {
 
     public static void main(String[] args) {
 
-        byte myByte = 24;
-        short myShort = 256;
-        int myInt = 1_045;
+        byte myByte = 10;
+        short myShort = 20;
+        int myInt = 50;
 
-        long myLong = (long) 50_000_000_0 * 10 * (myByte + myShort + myInt);
+        int sum = myByte + myShort + myInt;
+        long myLong = 50_000L + 10 * sum;
         System.out.println("This is the text value of the long: " + myLong);
 
         // int myNewByteValue = (short) Byte.MIN_VALUE * 2;
