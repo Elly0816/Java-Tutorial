@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-class FloatAndDouble {
+public class FloatAndDouble {
 
     public static void main(String[] args) {
 
