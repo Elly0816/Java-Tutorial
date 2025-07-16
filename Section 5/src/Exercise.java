@@ -1,34 +1,24 @@
-public class Exercise{
-    public static void main(String[] args){
-        
-        boolean gameOver = true;
-        int score = 800;
-        int levelCompleted = 5;
-        int bonus = 100;
+public class Exercise {
+    public static void main(String[] args) {
+        // int final1 = calcul ateScore(gameOver, score, levelCompleted, bonus);
 
-        // int final1 = calcul  ateScore(gameOver, score, levelCompleted, bonus);
-
-        System.out.println("The first score is: "
-        +calculateScore(gameOver, score, levelCompleted, bonus));
-        
-        score = 10_000;
-        levelCompleted = 8;
-        bonus = 200;
+        calculateScore(true, 800, 5, 100);
 
         // int final2 = calculateScore(gameOver, score, levelCompleted, bonus);
 
-        System.out.println("The second score is: "
-        +calculateScore(gameOver, score, levelCompleted, bonus));
+        calculateScore(true, 10_000, 8, 200);
     };
 
-    public static int calculateScore(boolean gameOver, int score, int levelCompleted, int bonus) {
+    private static int calculateScore(boolean gameOver, int score, int levelCompleted, int bonus) {
         int finalScore = score;
 
-
-        if (gameOver){
-            finalScore +=(levelCompleted*bonus);
+        if (gameOver) {
+            finalScore += (levelCompleted * bonus);
             // System.out.println("Your final score was " +finalScore);
-        };
+        }
+        ;
+
+        System.out.println("Your final score is " + finalScore);
 
         return finalScore;
     };

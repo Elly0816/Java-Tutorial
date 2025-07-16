@@ -1,4 +1,4 @@
-class OperatorsOperandsAndExpressions {
+public class OperatorsOperandsAndExpressions {
 
     public static void main(String[] args) {
         double result = 8.5;
