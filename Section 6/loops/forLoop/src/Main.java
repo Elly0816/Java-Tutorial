@@ -7,18 +7,18 @@ public class Main {
 
         int counter = 0, sum = 0, maxNumber;
         ArrayList<Integer> numbers = new ArrayList<>();
-        try (Scanner sc = new Scanner(System.in)) {
-            System.out.print("Enter an integer: ");
-            while (true) {
-                try {
-                    maxNumber = sc.nextInt();
-                    break;
-                } catch (InputMismatchException e) {
-                    System.out.print("Enter a valid integer: ");
-                    sc.nextLine();
-                }
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter an integer: ");
+        while (true) {
+            try {
+                maxNumber = sc.nextInt();
+                break;
+            } catch (InputMismatchException e) {
+                System.out.print("Enter a valid integer: ");
+                sc.nextLine();
             }
         }
+        sc.close();
 
         for (int i = 0; counter < 5 && i <= maxNumber; i++) {
             if (i % 3 == 0 && i % 5 == 0 && i != 0) {
