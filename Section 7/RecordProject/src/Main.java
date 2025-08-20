@@ -1,47 +1,31 @@
-public class Main{
+public class Main {
+
     public static void main(String[] args) {
 
-        ComplexNumber one = new ComplexNumber(1.0, 1.0);
-        ComplexNumber number = new ComplexNumber(2.5, -1.5);
-        one.add(1,1);
-        System.out.println("one.real= " + one.getReal());
-        System.out.println("one.imaginary= " + one.getImaginary());
-        one.subtract(number);
-        System.out.println("one.real= " + one.getReal());
-        System.out.println("one.imaginary= " + one.getImaginary());
-        number.subtract(one);
-        System.out.println("number.real= " + number.getReal());
-        System.out.println("number.imaginary= " + number.getImaginary());
-        // for (int i=1; i<=5; i++){
-        //     LPAStudent s = new LPAStudent("592300"+i,
-        //      switch(i){
-        //         case 1 -> "Mary";
-        //         case 2 -> "John";
-        //         case 3 -> "Peter";
-        //         case 4 -> "Elly";
-        //         case 5 -> "James";
-        //         default -> "Default";
-        //      },
-        //      "05/11/1985",
-        //       "Java MasterClass");
-        // System.out.println(s+"\n");
-        // }    
+        LPAStudent[] students = new LPAStudent[5];
 
-        // Student pojoStudent = new Student("592300", "Mary", "05/11/1985",
-        // "Java MasterClass");
+        for (int i = 1; i <= 5; i++) {
+            students[i - 1] = new LPAStudent(i + "234251", switch (i) {
+                case 1 -> "Eleazar";
+                case 2 -> "Jeremiah";
+                case 3 -> "Jeffrey";
+                case 4 -> "Xavier";
+                case 5 -> "Alexander";
+                default -> "Anonymous";
+            }, "1/1/200" + i, switch (i) {
+                case 1 -> "C++, Python, TypeScript/JavaScript, Java, C, React";
+                case 2 -> "Python, C++, C";
+                case 3 -> "Python";
+                case 4 -> "Unknown";
+                case 5 -> "HTML/CSS";
+                default -> "Invalid";
+            });
+        }
 
-        // LPAStudent recordStudent = new LPAStudent("592305", "John", "05/11/1985",
-        // "Java MasterClass");
-
-        // System.out.println(pojoStudent);
-        // System.out.println("\n");
-        // System.out.println(recordStudent);
-
-
-        // System.out.println(pojoStudent.getName()+ " is taking " +pojoStudent.getClassList());
-        // System.out.println(recordStudent.name()+ " is taking " +recordStudent.classList());
-
-
+        for (int i = 0; i < students.length; i++) {
+            System.out.println("Student #" + (i + 1) + " is: " + students[i]);
+            // students[i].setId("0");
+            System.out.println(students[i]);
+        }
     }
-
 }

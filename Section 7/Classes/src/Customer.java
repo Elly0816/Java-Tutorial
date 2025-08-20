@@ -1,35 +1,48 @@
-public class Customer{
-    public static void main(String[] args) {
-        
-    }
+class Customer {
 
     private String name;
-    private String creditLimit;
+    private double credit_limit;
     private String email;
 
-    public Customer(){
-        this("default name", "default Credit", "default email");
-    };
+    public Customer() {
+        this("Default name", "Default email");
+    }
 
-    public Customer(String name, String creditLimit, String email){
+    public Customer(String name, String email) {
+        this(name, 1_000, email);
+    }
+
+    public Customer(String name, double credit_limit, String email) {
         this.name = name;
-        this.creditLimit = creditLimit;
+        this.credit_limit = credit_limit;
         this.email = email;
-    };
-    
-    public Customer(String name, String email){
-        this(name, "default Credit", email);
-    };
-
-    public String getName(){
-        return this.name;
+        this.printInfo();
     }
 
-    public String getCredit(){
-        return this.creditLimit;
+    /**
+     * @return the credit_limit
+     */
+    public double getCredit_limit() {
+        return credit_limit;
     }
 
-    public String getEmail(){
-        return this.email;
+    /**
+     * @return the email
+     */
+    public String getEmail() {
+        return email;
+    }
+
+    /**
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
+
+    public void printInfo() {
+        System.out
+                .println("{\n\tCustomerName: " + this.name + ",\n\tCustomerEmail: " + this.email + ",\n\tCreditLimit: $"
+                        + String.format("%,.2f", this.credit_limit) + "\n}");
     }
 }
