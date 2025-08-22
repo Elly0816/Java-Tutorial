@@ -1,25 +1,39 @@
-public class Employee extends Worker{
-
+public class Employee extends Worker {
 
     private long employeeId;
     private String hireDate;
+    private static long employeeNumber = 0;
 
-    private static int employeeNumber = 1;
-
-    public Employee(String name,
-     String birthDate, String hireDate){
+    public Employee(String name, String birthDate, String hireDate) {
         super(name, birthDate);
-        this.employeeId = Employee.employeeNumber++;
         this.hireDate = hireDate;
-    }   
+        this.employeeId = ++Employee.employeeNumber;
+    }
 
+    /**
+     * @return the employeeId
+     */
+    public long getEmployeeId() {
+        return employeeId;
+    }
+
+    public static long getNumberOfEmployees() {
+        return Employee.employeeNumber;
+    }
+
+    /**
+     * @return the hireDate
+     */
+    public String getHireDate() {
+        return hireDate;
+    }
 
     @Override
     public String toString() {
         return "{" +
-            " employeeId='" + employeeId + "'" +
-            ", hireDate='" + hireDate + "'" +
-            "}" +super.toString();
+                " employeeId='" + getEmployeeId() + "'" +
+                ", hireDate='" + getHireDate() + "'" +
+                "}" + super.toString();
     }
 
 }
