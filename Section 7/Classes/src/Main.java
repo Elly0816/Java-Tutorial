@@ -8,12 +8,12 @@ public class Main {
         System.out.println("\n");
         Customer thirdCustomer = new Customer("Microsoft", 12_000_000_000.55, "microsoft@live.co");
 
-        // firstCustomer.printInfo();
-        // System.out.println("\n");
-        // secondCustomer.printInfo();
-        // System.out.println("\n");
-        // thirdCustomer.printInfo();
-        // System.out.println("\n");
+        firstCustomer.printInfo();
+        System.out.println("\n");
+        secondCustomer.printInfo();
+        System.out.println("\n");
+        thirdCustomer.printInfo();
+        System.out.println("\n");
         // Car carrera = new Car("Porsche", "Carrera", "red", 2, true);
         // carrera.describeCar();
         // Car targa = new Car();

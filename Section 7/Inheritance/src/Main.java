@@ -1,30 +1,30 @@
-
-public class Main{
-    
+public class Main {
     public static void main(String[] args) {
-        
+
         Animal animal = new Animal("Generic Animal", "Huge", 400);
-        doAnimalStuff(animal, "slow");
+        doAminalStuff(animal, "slow");
 
-        Dog dog = new Dog();
-        doAnimalStuff(dog, "fast");
+        Dog golden = new Dog("Golden Retriever", 65, "Floppy", "Swimmer");
+        doAminalStuff(golden, "Slow");
+        Dog gsd = new Dog("GSD", 70);
+        gsd.makeNoise();
+        // Dog dog = new Dog();
+        doAminalStuff(gsd, "fast");
 
-        Dog yorkie = new Dog("Yorkie", 15);
-        doAnimalStuff(yorkie, "fast");
+        Dog yorkie = new Dog("Yorkie", 12);
+        doAminalStuff(yorkie, "fast");
 
-        Dog retriever = new Dog("Labrador Retriever", 65, "Floppy", "Swimmer");
-        doAnimalStuff(retriever, "slow");
+        Dog grey = new Dog("Wolf", 85);
+        doAminalStuff(grey, "fast");
 
-        Dog wolf = new Dog("Wolf", 75);
-        doAnimalStuff(wolf, "Slow");
+        Fish goldie = new Fish("Goldfish", 3, 3, 2);
+        doAminalStuff(goldie, "fast");
 
-        Fish goldie = new Fish("GoldFish", 0.25, 2, 3);
-        doAnimalStuff(goldie, "fast");
     }
 
-    public static void doAnimalStuff(Animal animal, String speed){
-        animal.makeNoise();
+    public static void doAminalStuff(Animal animal, String speed) {
         animal.move(speed);
+        animal.makeNoise();
         System.out.println(animal);
         System.out.println("_ _ _ _");
     }
