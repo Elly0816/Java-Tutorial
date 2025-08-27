@@ -39,4 +39,14 @@ public class ElectricCar extends Car {
         System.out.println("Car is running");
     }
 
+    @Override
+    public void startEngine() {
+        System.out.printf("BEV -> switch %d kWh battery on, Ready%n", this.batterySize);
+    }
+
+    @Override
+    public void runEngine() {
+        System.out.printf("BEV -> usage under the average: %.2f%n", this.avgKmPerCharge);
+    }
+
 }

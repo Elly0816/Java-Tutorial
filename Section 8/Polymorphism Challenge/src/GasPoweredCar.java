@@ -33,4 +33,14 @@ public class GasPoweredCar extends Car {
                 super.getCarDetails(), this.cylinders, this.avgKmPerLitre);
     }
 
+    @Override
+    public void startEngine() {
+        System.out.printf("Gas -> All %d cylinders are fired up, Ready%n", this.cylinders);
+    }
+
+    @Override
+    public void runEngine() {
+        System.out.printf("Gas -> usage exceeds the average: %.2f%n", this.avgKmPerLitre);
+    }
+
 }

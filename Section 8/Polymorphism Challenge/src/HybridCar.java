@@ -43,9 +43,20 @@ public class HybridCar extends Car {
                 super.getCarDetails(), this.batterySize, this.cylinders, this.avgKmPerLitre);
     }
 
+    // @Override
+    // public void drive() {
+    // super.drive();
+    // System.out.println("The battery is being charged");
+    // }
+
     @Override
-    public void drive() {
-        super.drive();
-        System.out.println("The battery is being charged");
+    public void startEngine() {
+        System.out.printf("Hybrid -> All %d cylinders are fired up%n", this.cylinders);
+        System.out.printf("Hybrid -> Switch %d battery on, Ready%n", this.cylinders);
+    }
+
+    @Override
+    public void runEngine() {
+        System.out.printf("Gas -> usage exceeds the average: %.2f%n", this.avgKmPerLitre);
     }
 }
