@@ -14,8 +14,9 @@ public class Meal {
         this.type = type;
         if (price < 0) {
             this.price = 0;
+        } else {
+            this.price = price;
         }
-        this.price = price;
     }
 
     /**

@@ -3,8 +3,10 @@ import java.util.List;
 
 public class Burger extends Meal {
 
+    private static final double basePrice = 8.5;
+
     private String burgerType;
-    private int numberOfToppings;
+    // private int numberOfToppings;
     private List<Topping> toppings = new ArrayList<Topping>();
 
     public Burger(String burgerType, double price) {
@@ -16,12 +18,20 @@ public class Burger extends Meal {
         this(null, price);
     }
 
-    // Adds topping if there are less than 3 toppings already
+    public Burger() {
+        this(null, basePrice);
+    }
+
+    public Burger(String burgerType) {
+        this(burgerType, basePrice);
+    }
+
+    // Adds topping if there are less than sufficient toppings already
     protected void addTopping(Topping topping) {
         if (toppings.size() < this.getMaxNumberOfToppings()) {
             toppings.add(topping);
             this.addToppingPrice(topping);
-            this.numberOfToppings++;
+            // this.numberOfToppings++;
             System.out.printf("Topping added, you have %d toppings!%n", toppings.size());
         } else {
             System.out.printf("Can't add more toppings!%nYou already have %d toppings%n%n", this.toppings.size());
@@ -40,21 +50,32 @@ public class Burger extends Meal {
      * @return the burgerType
      */
     public String getBurgerType() {
-        return burgerType;
+        return this.burgerType;
     }
 
     /**
      * @return the numberOfToppings
      */
     public int getNumberOfToppings() {
-        return numberOfToppings;
+        // return numberOfToppings;
+        return this.toppings.size();
     }
 
     /**
      * @return the toppings
      */
     public List<Topping> getToppings() {
-        return toppings;
+        List<Topping> topping = new ArrayList<Topping>();
+        for (int i = 0; i < this.toppings.size(); i++) {
+            topping.add(this.toppings.get(i));
+        }
+        // System.out.println("This is the defensive copy of the toppings array: " +
+        // topping.toString());
+        return topping;
+    }
+
+    public double getBasePrice() {
+        return basePrice;
     }
 
     @Override

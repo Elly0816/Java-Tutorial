@@ -10,6 +10,18 @@ public class Main {
         mealItem.addToppingToBurger("Omelette");
 
         System.out.println(mealItem);
+        // mealItem.foodGreeting();
+
+        // mealItem.printBurger();
+
+        // mealItem.printDrink();
+
+        // mealItem.printSide();
+
+        mealItem.changeDrinkSize("Large");
+        mealItem.printItemizedList();
+        mealItem.printTotalAmount();
+        // System.out.println(mealItem);
     }
 
 }

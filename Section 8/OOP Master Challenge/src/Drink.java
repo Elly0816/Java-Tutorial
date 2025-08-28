@@ -6,13 +6,13 @@
 public class Drink extends Meal {
     private String size;
 
+    public Drink(String type, String size) {
+        this(type, size, 0);
+    }
+
     public Drink(String type, String size, double price) {
-        super(type, switch (size.toLowerCase().charAt(0)) {// The price of the drink is determined by it's size
-            case 'm' -> 1.00;
-            case 'l' -> 1.5;
-            case 's' -> 0.5;
-            default -> 0.5;
-        });
+
+        super(type, getPriceFromSize(size, price));
         this.size = size;
     }
 
@@ -28,6 +28,17 @@ public class Drink extends Meal {
         return super.toString() + "{" +
                 " size='" + getSize() + "'" +
                 "}";
+    }
+
+    private static double getPriceFromSize(String size, double price) {
+        if (size == null || size.trim().isBlank())
+            return price;
+        return switch (size.toLowerCase().charAt(0)) {// The price of the drink is determined by it's size
+            case 'm' -> 1.00;
+            case 'l' -> 1.5;
+            case 's' -> 0.5;
+            default -> price;
+        };
     }
 
 }

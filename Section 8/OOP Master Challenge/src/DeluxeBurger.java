@@ -7,8 +7,15 @@
  */
 public class DeluxeBurger extends Burger {
 
+    private static final String type = "Deluxe Burger";
+    private static final double basePrice = 12.5;
+
     public DeluxeBurger(double price) {
-        super("Deluxe Burger", price);
+        super(type, price);
+    }
+
+    public DeluxeBurger() {
+        this(basePrice);
     }
 
     @Override
@@ -19,6 +26,11 @@ public class DeluxeBurger extends Burger {
     @Override
     protected void addToppingPrice(Topping topping) {
         this.addToPrice(0);
+    }
+
+    @Override
+    public double getBasePrice() {
+        return basePrice;
     }
 
 }

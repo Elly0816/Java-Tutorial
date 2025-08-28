@@ -10,8 +10,8 @@ public class MealOrder {
 
     public MealOrder() {
         this.burger = new Burger(null, 0);
-        this.drink = new Drink(null, null, 0);
-        this.side = new Side(null, 0);
+        this.drink = new Drink(null, "small");
+        this.side = new Side(null);
     }
 
     public MealOrder(Burger burger, Drink drink, Side side) {
@@ -20,71 +20,63 @@ public class MealOrder {
         this.side = side;
     }
 
+    // Overloaded methods to create and return a new meal order
     public static MealOrder createMeal(String burgerType, String drinkType, String drinkSize, String sideType) {
-        Burger burger = switch (burgerType.toLowerCase().charAt(0)) {
-            case 'd' -> new DeluxeBurger(0);
-            case 'h' -> new HamBurger(0);
-            default -> new Burger(0);
-        };
+        Burger burger;
+        if (burgerType == null || burgerType.trim().isBlank()) {
+            burger = new Burger();
+        } else {
+            burger = switch (burgerType.toLowerCase().charAt(0)) {
+                case 'd' -> new DeluxeBurger();
+                case 'h' -> new HamBurger();
+                default -> new Burger();
+            };
+        }
 
-        Drink drink = new Drink(drinkType, drinkSize, 0);
+        Drink drink = new Drink(drinkType, drinkSize);
 
-        Side side = new Side(sideType, 0);
+        Side side = new Side(sideType);
 
         return new MealOrder(burger, drink, side);
     }
 
     public static MealOrder createMeal(String burgerType, String drinkType, String drinkSize, String sideType,
             String topping1) {
-        Burger burger = switch (burgerType.toLowerCase().charAt(0)) {
-            case 'd' -> new DeluxeBurger(0);
-            case 'h' -> new HamBurger(0);
-            default -> new Burger(0);
-        };
+        MealOrder meal = createMeal(burgerType, drinkType, drinkSize, sideType);
+        Burger burger = meal.getBurger();
+        burger.addTopping(new Topping(topping1));
 
-        burger.addTopping(new Topping(topping1, 0));
-
-        Drink drink = new Drink(drinkType, drinkSize, 0);
-
-        Side side = new Side(sideType, 0);
-
-        return new MealOrder(burger, drink, side);
+        return meal;
     }
 
     public static MealOrder createMeal(String burgerType, String drinkType, String drinkSize, String sideType,
             String topping1, String topping2) {
-        Burger burger = switch (burgerType.toLowerCase().charAt(0)) {
-            case 'd' -> new DeluxeBurger(0);
-            case 'h' -> new HamBurger(0);
-            default -> new Burger(0);
-        };
 
-        burger.addTopping(new Topping(topping1, 0));
-        burger.addTopping(new Topping(topping2, 0));
+        MealOrder meal = createMeal(burgerType, drinkType, drinkSize, sideType, topping1);
+        Burger burger = meal.getBurger();
+        burger.addTopping(new Topping(topping2));
 
-        Drink drink = new Drink(drinkType, drinkSize, 0);
-
-        Side side = new Side(sideType, 0);
-
-        return new MealOrder(burger, drink, side);
+        return meal;
     }
 
     public static MealOrder createMeal(String burgerType, String drinkType, String drinkSize, String sideType,
             String topping1, String topping2, String topping3) {
-        Burger burger = switch (burgerType.toLowerCase().charAt(0)) {
-            case 'd' -> new DeluxeBurger(0);
-            case 'h' -> new HamBurger(0);
-            default -> new Burger(0);
-        };
-        burger.addTopping(new Topping(topping1, 0));
-        burger.addTopping(new Topping(topping2, 0));
-        burger.addTopping(new Topping(topping3, 0));
+        MealOrder meal = createMeal(burgerType, drinkType, drinkSize, sideType, topping1, topping2);
+        Burger burger = meal.getBurger();
+        burger.addTopping(new Topping(topping3));
 
-        Drink drink = new Drink(drinkType, drinkSize, 0);
+        return meal;
+    }
 
-        Side side = new Side(sideType, 0);
+    // Overloaded method that changes the size of the drink
+    public void changeDrinkSize(String size) {
+        Drink newDrink = new Drink(this.getDrink().getType(), size);
+        this.drink = newDrink;
+    }
 
-        return new MealOrder(burger, drink, side);
+    public void ChangeDrinkSize(String type, String size) {
+        Drink newDrink = new Drink(type, size);
+        this.drink = newDrink;
     }
 
     /**
@@ -106,7 +98,7 @@ public class MealOrder {
      * prints the side to the console
      */
     public void printSide() {
-        System.out.println(this.drink);
+        System.out.println(this.side);
         // return side;
     }
 
@@ -131,8 +123,13 @@ public class MealOrder {
         return side;
     }
 
+    // Overloaded method for adding toppings to burgers
     public void addToppingToBurger(String topping) {
-        this.burger.addTopping(new Topping(topping, 0));
+        this.burger.addTopping(new Topping(topping));
+    }
+
+    public void addToppingToBurger(String topping, double price) {
+        this.burger.addTopping(new Topping(topping, price));
     }
 
     @Override
@@ -143,5 +140,36 @@ public class MealOrder {
                 ", side='" + getSide() + "'" +
                 "}";
     }
+
+    public void printItemizedList() {
+        System.out.printf(
+                "%s's base price=%,.2f,\nYour %,d toppings are: %s\nYour drink %s %s is %,.2f\nAnd your side %s is %,.2f",
+                this.getBurger().getClass().getSimpleName(),
+                this.getBurger().getBasePrice(), this.getBurger().getNumberOfToppings(),
+                this.getBurger().getToppings(), this.getDrink().getSize(), this.getDrink().getType(),
+                this.getDrink().getPrice(), this.getSide().getType(), this.getSide().getPrice());
+    }
+
+    public void printTotalAmount() {
+        double totalAmount = this.getBurger().getPrice() + this.getSide().getPrice() + this.getDrink().getPrice();
+        System.out.printf("%nThe total amount due for this meal is %,.2f", totalAmount);
+    }
+
+    // public void foodGreeting() {
+    // if (this.getBurger() instanceof DeluxeBurger db) {
+    // System.out.printf("%s!%nUp to 5 toppings with no price increase on the deluxe
+    // burger meal!",
+    // db.getClass().getSimpleName());
+    // } else if (this.getBurger() instanceof HamBurger hb) {
+    // System.out.printf("%s!%nUp to 3 toppings with price increases of course on
+    // the ham burger meal!",
+    // hb.getClass().getSimpleName());
+    // } else {
+    // System.out.printf("%s!%nUp to 3 toppings with price increases of course on
+    // the burger meal!",
+    // this.getBurger().getClass().getSimpleName());
+    // }
+    // System.out.println("");
+    // }
 
 }
