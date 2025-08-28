@@ -43,29 +43,21 @@ public class MealOrder {
     public static MealOrder createMeal(String burgerType, String drinkType, String drinkSize, String sideType,
             String topping1) {
         MealOrder meal = createMeal(burgerType, drinkType, drinkSize, sideType);
-        Burger burger = meal.getBurger();
-        burger.addTopping(new Topping(topping1));
+        return meal.getBurgerAndAddTopping(topping1);
 
-        return meal;
     }
 
     public static MealOrder createMeal(String burgerType, String drinkType, String drinkSize, String sideType,
             String topping1, String topping2) {
 
         MealOrder meal = createMeal(burgerType, drinkType, drinkSize, sideType, topping1);
-        Burger burger = meal.getBurger();
-        burger.addTopping(new Topping(topping2));
-
-        return meal;
+        return meal.getBurgerAndAddTopping(topping2);
     }
 
     public static MealOrder createMeal(String burgerType, String drinkType, String drinkSize, String sideType,
             String topping1, String topping2, String topping3) {
         MealOrder meal = createMeal(burgerType, drinkType, drinkSize, sideType, topping1, topping2);
-        Burger burger = meal.getBurger();
-        burger.addTopping(new Topping(topping3));
-
-        return meal;
+        return meal.getBurgerAndAddTopping(topping3);
     }
 
     // Overloaded method that changes the size of the drink
@@ -153,6 +145,13 @@ public class MealOrder {
     public void printTotalAmount() {
         double totalAmount = this.getBurger().getPrice() + this.getSide().getPrice() + this.getDrink().getPrice();
         System.out.printf("%nThe total amount due for this meal is %,.2f", totalAmount);
+    }
+
+    private MealOrder getBurgerAndAddTopping(String topping) {
+        Burger burger = this.getBurger();
+        burger.addTopping(new Topping(topping));
+
+        return this;
     }
 
     // public void foodGreeting() {
