@@ -3,7 +3,7 @@
  * The drink inherits from the Meal
  */
 
-public class Drink extends Meal {
+public class Drink extends Item {
     private String size;
 
     public Drink(String type, String size) {

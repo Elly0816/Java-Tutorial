@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Burger extends Meal {
+public class Burger extends Item {
 
     private static final double basePrice = 8.5;
 
@@ -28,13 +28,14 @@ public class Burger extends Meal {
 
     // Adds topping if there are less than sufficient toppings already
     protected void addTopping(Topping topping) {
-        if (toppings.size() < this.getMaxNumberOfToppings()) {
-            toppings.add(topping);
+        if (this.toppings.size() < this.getMaxNumberOfToppings()) {
+            this.toppings.add(topping);
             this.addToppingPrice(topping);
             // this.numberOfToppings++;
-            System.out.printf("Topping added, you have %d toppings!%n", toppings.size());
+            // System.out.printf("Topping added, you have %d toppings!%n", toppings.size());
         } else {
-            System.out.printf("Can't add more toppings!%nYou already have %d toppings%n%n", this.toppings.size());
+            // System.out.printf("Can't add more toppings!%nYou already have %d
+            // toppings%n%n", this.toppings.size());
         }
     }
 

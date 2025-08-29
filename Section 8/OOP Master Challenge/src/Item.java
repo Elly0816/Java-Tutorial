@@ -6,11 +6,11 @@
  * 
  */
 
-public class Meal {
+public class Item {
     private String type;
     private double price;
 
-    public Meal(String type, double price) {
+    public Item(String type, double price) {
         this.type = type;
         if (price < 0) {
             this.price = 0;

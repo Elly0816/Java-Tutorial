@@ -66,7 +66,7 @@ public class MealOrder {
         this.drink = newDrink;
     }
 
-    public void ChangeDrinkSize(String type, String size) {
+    public void changeDrinkSize(String type, String size) {
         Drink newDrink = new Drink(type, size);
         this.drink = newDrink;
     }
