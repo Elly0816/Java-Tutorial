@@ -8,7 +8,7 @@
 public class DeluxeBurger extends Burger {
 
     private static final String type = "Deluxe Burger";
-    private static final double basePrice = 12.5;
+    private static final double basePrice = 14.5;
 
     public DeluxeBurger(double price) {
         super(type, price);
@@ -16,11 +16,6 @@ public class DeluxeBurger extends Burger {
 
     public DeluxeBurger() {
         this(basePrice);
-    }
-
-    @Override
-    protected int getMaxNumberOfToppings() {
-        return 5;
     }
 
     @Override

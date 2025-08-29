@@ -5,13 +5,13 @@ public class Burger extends Item {
 
     private static final double basePrice = 8.5;
 
-    private String burgerType;
+    // private String burgerType;
     // private int numberOfToppings;
     private List<Topping> toppings = new ArrayList<Topping>();
 
     public Burger(String burgerType, double price) {
-        super("Burger", price);
-        this.burgerType = burgerType;
+        super(burgerType, price);
+        // this.burgerType = burgerType;
     }
 
     public Burger(double price) {
@@ -44,14 +44,15 @@ public class Burger extends Item {
     }
 
     protected int getMaxNumberOfToppings() {
-        return 3;
+        return (this instanceof DeluxeBurger) ? 5 : 3;
     }
 
     /**
      * @return the burgerType
      */
     public String getBurgerType() {
-        return this.burgerType;
+        // return this.burgerType;
+        return this.getType();
     }
 
     /**
@@ -86,6 +87,29 @@ public class Burger extends Item {
                 ", numberOfToppings='" + getNumberOfToppings() + "'" +
                 ", toppings='" + getToppings() + "'" +
                 "}";
+    }
+
+    @Override
+    public String getItemInfo() {
+        StringBuilder toppingsInfo = new StringBuilder();
+        for (int i = 0; i < this.getNumberOfToppings(); i++) {
+            toppingsInfo.append("\t" + this.toppings.get(i).getItemInfo());
+        }
+        if (toppingsInfo.isEmpty()) {
+            return String.format("""
+                    %10s: %s = $%,.2f
+                    """, "BURGER",
+                    this.getClass().getSimpleName().toUpperCase(),
+                    this.getBasePrice());
+        } else {
+            return String.format("""
+                    %10s: %s = $%,.2f,%n%s
+                    """, "BURGER",
+                    this.getClass().getSimpleName().toUpperCase(),
+                    this.getBasePrice(), toppingsInfo);
+
+        }
+
     }
 
 }

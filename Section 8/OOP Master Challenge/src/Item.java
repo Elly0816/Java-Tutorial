@@ -45,4 +45,10 @@ public class Item {
                 "}";
     }
 
+    public String getItemInfo() {
+        return String.format("""
+                %10s: %s = $%,.2f
+                """, this.getClass().getSimpleName().toUpperCase(), this.getType().toUpperCase(), this.getPrice());
+    }
+
 }

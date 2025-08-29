@@ -8,13 +8,13 @@ public class MealOrder {
     private Drink drink;
     private Side side;
 
-    public MealOrder() {
+    private MealOrder() {
         this.burger = new Burger(null, 0);
         this.drink = new Drink(null, "small");
         this.side = new Side(null);
     }
 
-    public MealOrder(Burger burger, Drink drink, Side side) {
+    private MealOrder(Burger burger, Drink drink, Side side) {
         this.burger = burger;
         this.drink = drink;
         this.side = side;
@@ -62,7 +62,7 @@ public class MealOrder {
 
     // Overloaded method that changes the size of the drink
     public void changeDrinkSize(String size) {
-        Drink newDrink = new Drink(this.getDrink().getType(), size);
+        Drink newDrink = new Drink(this.drink.getType(), size);
         this.drink = newDrink;
     }
 
@@ -94,26 +94,26 @@ public class MealOrder {
         // return side;
     }
 
-    /**
-     * @return the burger
-     */
-    private Burger getBurger() {
-        return burger;
-    }
+    // /**
+    // * @return the burger
+    // */
+    // private Burger getBurger() {
+    // return burger;
+    // }
 
-    /**
-     * @return the drink
-     */
-    private Drink getDrink() {
-        return drink;
-    }
+    // /**
+    // * @return the drink
+    // */
+    // private Drink getDrink() {
+    // return drink;
+    // }
 
-    /**
-     * @return the side
-     */
-    private Side getSide() {
-        return side;
-    }
+    // /**
+    // * @return the side
+    // */
+    // private Side getSide() {
+    // return side;
+    // }
 
     // Overloaded method for adding toppings to burgers
     public void addToppingToBurger(String topping) {
@@ -127,28 +127,38 @@ public class MealOrder {
     @Override
     public String toString() {
         return "{" +
-                " burger='" + getBurger() + "'" +
-                ", drink='" + getDrink() + "'" +
-                ", side='" + getSide() + "'" +
+                " burger='" + this.burger + "'" +
+                ", drink='" + this.drink + "'" +
+                ", side='" + this.side + "'" +
                 "}";
     }
 
+    // public void printItemizedList() {
+    // System.out.printf(
+    // "%s's base price=%,.2f,\nYour %,d toppings are: %s\nYour drink %s %s is
+    // %,.2f\nAnd your side %s is %,.2f",
+    // this.getBurger().getClass().getSimpleName(),
+    // this.getBurger().getBasePrice(), this.getBurger().getNumberOfToppings(),
+    // this.getBurger().getToppings(), this.getDrink().getSize(),
+    // this.getDrink().getType(),
+    // this.getDrink().getPrice(), this.getSide().getType(),
+    // this.getSide().getPrice());
+    // }
+
     public void printItemizedList() {
-        System.out.printf(
-                "%s's base price=%,.2f,\nYour %,d toppings are: %s\nYour drink %s %s is %,.2f\nAnd your side %s is %,.2f",
-                this.getBurger().getClass().getSimpleName(),
-                this.getBurger().getBasePrice(), this.getBurger().getNumberOfToppings(),
-                this.getBurger().getToppings(), this.getDrink().getSize(), this.getDrink().getType(),
-                this.getDrink().getPrice(), this.getSide().getType(), this.getSide().getPrice());
+        System.out.print(this.burger.getItemInfo() + this.side.getItemInfo() + this.drink.getItemInfo());
+        System.out.print("-".repeat(60));
+        this.printTotalAmount();
     }
 
     public void printTotalAmount() {
-        double totalAmount = this.getBurger().getPrice() + this.getSide().getPrice() + this.getDrink().getPrice();
-        System.out.printf("%nThe total amount due for this meal is %,.2f", totalAmount);
+        double totalAmount = this.burger.getPrice() + this.side.getPrice() + this.drink.getPrice();
+        System.out.printf("%nTOTAL FOR %s MEAL IS $%,.2f", this.burger.getClass().getSimpleName().toUpperCase(),
+                totalAmount);
     }
 
     private MealOrder getBurgerAndAddTopping(String topping) {
-        Burger burger = this.getBurger();
+        Burger burger = this.burger;
         burger.addTopping(new Topping(topping));
 
         return this;

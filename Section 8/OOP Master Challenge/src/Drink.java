@@ -41,4 +41,13 @@ public class Drink extends Item {
         };
     }
 
+    @Override
+    public String getItemInfo() {
+        return String.format("""
+                %10s: %s %s = $%,.2f
+                """, this.getClass().getSimpleName().toUpperCase(), this.getSize().toUpperCase(),
+                this.getType().toUpperCase(),
+                this.getPrice());
+    }
+
 }
