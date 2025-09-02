@@ -13,6 +13,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+        // Checking equality of arrays
         String[] arrStrings = { "John", "Mary", "Mark", "Eleazar", "Matthew" };
         String[] arrStrings2 = { "Mary", "John", "Mark", "Eleazar", "Matthew", "James" };
         Arrays.sort(arrStrings);
@@ -22,6 +23,10 @@ public class Main {
         } else {
             System.out.println("These arrays are not equal! ");
         }
+
+        // Using Binary Search in arrays
+        // Int array
+        // With user input
         int[] intArr = createIntArray(15);
         System.out.println(Arrays.toString(intArr));
         Arrays.sort(intArr);
