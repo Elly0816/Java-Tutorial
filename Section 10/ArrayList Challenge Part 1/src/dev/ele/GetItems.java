@@ -13,6 +13,10 @@ public class GetItems {
 
     public static void getDeleteItemsFromUser(Scanner sc) {
         boolean isValid = true;
+        if (GroceryList.numberOfItems() < 1) {
+            System.out.println("Your grocery list is empty, nothing to delete");
+            return;
+        }
         System.out.println("You can either enter a comma delimited list of items, or an index");
         while (isValid) {
             String item = sc.nextLine();

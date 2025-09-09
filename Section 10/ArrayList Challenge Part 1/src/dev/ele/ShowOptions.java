@@ -7,8 +7,7 @@ public class ShowOptions {
                 1 -> Add Items (Comma delimited);
                 2 -> Remove Items (Comma delimited)
 
-            Enter an option below:
-            """;
+            Enter an option below: """;
 
     public static void showMenu() {
         // System.out.println(options);
