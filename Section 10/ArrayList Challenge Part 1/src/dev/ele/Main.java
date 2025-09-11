@@ -19,9 +19,9 @@ public class Main {
                 case 1 -> {
                     // Handle adding items to list
                     GroceryList.add(GetItems.getItemsFromUser(sc));
-                    System.out.println("_".repeat(50));
+                    System.out.println("_".repeat(70));
                     GroceryList.displayItems();
-                    System.out.println("_".repeat(50));
+                    System.out.println("_".repeat(70));
                 }
                 case 2 -> {
                     // Handle removing items from the list
@@ -31,9 +31,9 @@ public class Main {
                      * 
                      */
                     GetItems.getDeleteItemsFromUser(sc);
-                    System.out.println("_".repeat(50));
+                    System.out.println("_".repeat(70));
                     GroceryList.displayItems();
-                    System.out.println("_".repeat(50));
+                    System.out.println("_".repeat(70));
 
                 }
             }
