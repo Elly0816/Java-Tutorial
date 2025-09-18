@@ -19,11 +19,8 @@ public class Clothing extends ProductForSale {
 
     @Override
     public void showDetails() {
-        System.out.printf(
-                "MANUFACTURERS: %s%nMAKE YEAR: %s%nTYPE: %s%nPRICE: %s%nOCCASION: %s%nSIZE: %s%nDESCRIPTION: %s%n",
-                this.manufacturers,
-                this.yearOfManufacture, this.getType(), this.getPrice(), this.occassion.name(), this.size.name(),
-                this.getDescription());
+        System.out.printf("%s %s %s. Made in %d by %s. %s%n", size.name(), occassion.name(), getType(),
+                yearOfManufacture, manufacturers, getDescription());
 
     }
 

@@ -13,10 +13,8 @@ public class BuildingMaterial extends ProductForSale {
     @Override
     public void showDetails() {
         String isWaterResistantString = waterResistant ? "is water Resistant" : "is not water resistant";
-        System.out.printf(
-                "TYPE: %s%nPRICE: %s%nMATERIAL: %s%nWATER RESISTANT: %s%nDESCRIPTION: %s%n",
-                this.getType(), this.getPrice(), this.material, isWaterResistantString,
-                this.getDescription());
+        System.out.printf("%s made from high quality %s. This product %s. %s%n", getType(), material,
+                isWaterResistantString, getDescription());
     }
 
     /**

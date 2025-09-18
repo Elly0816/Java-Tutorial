@@ -13,8 +13,7 @@ public class ConsumerElectronic extends ProductForSale {
 
     @Override
     public void showDetails() {
-        System.out.printf("MANUFACTURERS: %s%nMODEL: %s%nTYPE: %s%nPRICE: %s%nDESCRIPTION: %s%n", this.manufacturer,
-                this.model, this.getType(), this.getPrice(), this.getDescription());
+        System.out.printf("%s's %s %s. %s%n", manufacturer, model, getType(), getDescription());
 
     }
 

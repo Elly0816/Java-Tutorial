@@ -3,8 +3,8 @@ package dev.ele;
 import java.util.ArrayList;
 
 public class Store {
-    public static ArrayList<ProductForSale> products = new ArrayList<>();
-    public static ArrayList<OrderItem> order = new ArrayList<>();
+    private static ArrayList<ProductForSale> products = new ArrayList<>();
+    private static ArrayList<OrderItem> order = new ArrayList<>();
 
     public static void main(String[] args) {
 
@@ -66,11 +66,11 @@ public class Store {
 
     }
 
-    public static void addItem(OrderItem item) {
+    private static void addItem(OrderItem item) {
         order.add(item);
     }
 
-    public static void printPrices() {
+    private static void printPrices() {
         for (OrderItem o : order) {
             o.product().printPricedItem(o.quantity());
             addNewLine();
@@ -78,7 +78,7 @@ public class Store {
         addNewLine();
     }
 
-    public static void printOrderedItems() {
+    private static void printOrderedItems() {
         for (OrderItem o : order) {
             System.out.println("QUANTITY: " + o.quantity());
             o.product().showDetails();
@@ -87,11 +87,11 @@ public class Store {
         addNewLine();
     }
 
-    public static void addProduct(ProductForSale product) {
+    private static void addProduct(ProductForSale product) {
         products.add(product);
     }
 
-    public static void printProducts() {
+    private static void printProducts() {
         for (ProductForSale p : products) {
             p.showDetails();
             addNewLine();
@@ -99,7 +99,7 @@ public class Store {
         addNewLine();
     }
 
-    public static void printTotalOrder() {
+    private static void printTotalOrder() {
         double total = 0;
         for (OrderItem o : order) {
             total += o.product().getSalesPrice(o.quantity());
@@ -109,8 +109,8 @@ public class Store {
         addNewLine();
     }
 
-    public static void addNewLine() {
-        System.out.println("_".repeat(30));
+    private static void addNewLine() {
+        System.out.println("_".repeat(150));
     }
 
 }

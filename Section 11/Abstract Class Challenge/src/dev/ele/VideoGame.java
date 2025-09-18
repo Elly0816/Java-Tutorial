@@ -19,9 +19,8 @@ public class VideoGame extends ProductForSale {
     public void showDetails() {
         String isAdultString = isAdult ? "contains explicit content" : "does not contain explicit content";
         System.out.printf(
-                "TYPE: %s%nPRICE: %s%nMANUFACTURER: %s%nADULT ONLY: %s%nGENRE: %s%nPLATFORM: %s%nDESCRIPTION: %s%n",
-                this.getType(), this.getPrice(), this.manufacturer, isAdultString,
-                this.genre, this.platform, this.getDescription());
+                "%s game by %s. This is a %s game. It %s. %s%n", genre, manufacturer, platform.name(),
+                isAdultString, this.getDescription());
 
     }
 
