@@ -4,47 +4,56 @@ public class Park extends Point {
 
     private String name;
     private String type;
+    private static final String DEFAULT_TYPE = "Park";
 
     public Park(String name, Coordinates coordinates) {
-        this(name, "Park", coordinates);
+        super(coordinates);
+        this.name = name;
+        this.type = DEFAULT_TYPE;
     }
 
     public Park(String name, String coordinates) {
-        this(name, "Park", coordinates);
+        super(coordinates);
+        this.name = name;
+        this.type = DEFAULT_TYPE;
     }
 
     public Park(String name, double lat, double lon) {
-        this(name, "Park", lat, lon);
+        super(lat, lon);
+        this.name = name;
+        this.type = DEFAULT_TYPE;
     }
 
     public Park(String name, String type, double lat, double lon) {
-        super(lat, lon);
-        this.name = name;
+        this(name, lat, lon);
         this.type = type;
     }
 
     public Park(String name, String type, Coordinates coordinates) {
-        super(coordinates);
-        this.name = name;
+        this(name, coordinates);
         this.type = type;
     }
 
     public Park(String name, String type, String coordinates) {
-        super(coordinates);
-        this.name = name;
+        this(name, coordinates);
         this.type = type;
     }
 
     public String getName() {
-        return this.name;
+        return name;
     }
 
     public String getType() {
-        return this.type;
+        return type;
+    }
+
+    @Override
+    public String toString() {
+        return name + " " + type;
     }
 
     @Override
     public void render() {
-        System.out.printf("%s %s as %s (%s)", getName(), getType(), getGeoType(), getCoordinates());
+        System.out.printf("Render %s as %s (%s)", this, getGeoType(), getCoordinates());
     }
 }

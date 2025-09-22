@@ -1,9 +1,11 @@
 package dev.ele;
 
-public record LineCoordinates(Coordinates start, Coordinates middle, Coordinates end) {
+import java.util.Arrays;
+
+public record LineCoordinates(Coordinates... coordinates) {
 
     @Override
     public String toString() {
-        return "[%s], [%s], [%s]".formatted(start(), middle(), end());
+        return Arrays.toString(coordinates);
     }
 };

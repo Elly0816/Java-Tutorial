@@ -2,6 +2,7 @@ package dev.ele;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class Layer<T extends Mappable> {
@@ -17,12 +18,15 @@ public class Layer<T extends Mappable> {
     }
 
     public Layer(Collection<T> elements) {
-        elements = new ArrayList<>();
-        elements.addAll(elements);
+        this.elements = new ArrayList<>();
+        if (elements != null && elements.size() > 0) {
+            this.elements.addAll(elements);
+        }
     }
 
     public List<T> getElements() {
-        return elements;
+        // return new ArrayList<>(elements);
+        return Collections.unmodifiableList(elements);
     }
 
     public void addElement(T element) {
@@ -30,7 +34,9 @@ public class Layer<T extends Mappable> {
     }
 
     public void addElements(Collection<T> elements) {
-        this.elements.addAll(elements);
+        if (elements != null && elements.size() > 0) {
+            this.elements.addAll(elements);
+        }
     }
 
     public void renderLayer() {

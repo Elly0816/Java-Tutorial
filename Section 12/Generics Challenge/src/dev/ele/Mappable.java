@@ -6,7 +6,7 @@ public interface Mappable {
     static double[] stringToLatLon(String latLon) {
         String[] coords = latLon.strip().replace(" ", "").split(",");
         if (coords.length != 2) {
-            throw new IllegalArgumentException("Cordinates should be a comma seperated string of 2 numbers");
+            throw new IllegalArgumentException("Cordinates should be a comma separated string of 2 doubles");
         }
         double lat = Double.valueOf(coords[0]);
         double lon = Double.valueOf(coords[1]);
