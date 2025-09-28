@@ -10,4 +10,5 @@ public class Store {
         Meal usMeal = new Meal(0.68);
         System.out.println(usMeal);
     }
+
 }

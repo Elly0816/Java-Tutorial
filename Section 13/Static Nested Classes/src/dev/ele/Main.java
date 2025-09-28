@@ -28,6 +28,10 @@ public class Main {
         var comparator = new StoreEmployee().new StoreComparator<>();
         storeEmployees.sort(comparator);
         printEmployees(storeEmployees);
+
+        System.out.println("With Pig Latin Names");
+        addPigLatinName(storeEmployees);
+
     }
 
     private static <T extends Employee> void printEmployees(List<T> employees) {
@@ -35,5 +39,45 @@ public class Main {
             System.out.println(e);
         }
         System.out.println();
+    }
+
+    public static void addPigLatinName(List<? extends StoreEmployee> list) {
+        String lastName = "Piggy";
+        class DecoratedEmployee extends StoreEmployee implements Comparable<DecoratedEmployee> {
+            private String pigLatinName;
+            private Employee originalInstance;
+
+            public DecoratedEmployee(String pigLatinName, Employee originalInstance) {
+                this.pigLatinName = pigLatinName + " " + lastName;
+                this.originalInstance = originalInstance;
+            }
+
+            @Override
+            public int compareTo(DecoratedEmployee o) {
+                return pigLatinName.compareTo(o.pigLatinName);
+            };
+
+            @Override
+            public String toString() {
+                return originalInstance.toString() + " " + pigLatinName;
+            }
+        }
+
+        List<DecoratedEmployee> newList = new ArrayList<>(list.size());
+        for (var employee : list) {
+            String name = employee.getName();
+            String pigLatin = (char) (name.charAt(1) - 32) + name.substring(2) + (char) (name.charAt(0) + 32) + "ay"
+            // +
+            // " " + lastName
+            ;
+            newList.add(new DecoratedEmployee(pigLatin, employee));
+        }
+
+        newList.sort(null);
+        for (var decoratedEmployee : newList) {
+            System.out.println(decoratedEmployee.originalInstance.getName() + " " + decoratedEmployee.pigLatinName);
+            // System.out.println(decoratedEmployee);
+        }
+
     }
 }
