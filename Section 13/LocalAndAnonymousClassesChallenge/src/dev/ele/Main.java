@@ -23,11 +23,11 @@ public class Main {
             employees.add(new Employee(employeeFirstName, employeeLastName, year));
         }
 
-        wrapperMethod(employees);
+        printOrderedField(employees, "lastName");
     }
 
-    private static void wrapperMethod(List<Employee> employees) {
-        class EmployeeWrapper {
+    private static void printOrderedField(List<Employee> employees, String field) {
+        class MyEmployee {
 
             private String fullName;
             private int yearsWorked;
@@ -35,9 +35,9 @@ public class Main {
             private final int YEAR = LocalDate.now().getYear();
             private Employee instance;
 
-            public EmployeeWrapper(Employee employee) {
+            public MyEmployee(Employee employee) {
                 instance = employee;
-                fullName = employee.firstName() + " " + employee.lastName();
+                fullName = String.join(" ", employee.firstName(), employee.lastName());
                 yearsWorked = YEAR - employee.hireYear();
             }
 
@@ -47,15 +47,22 @@ public class Main {
             }
         }
 
-        List<EmployeeWrapper> employeesWrapped = new ArrayList<>();
+        List<MyEmployee> employeesWrapped = new ArrayList<>();
         for (var e : employees) {
-            employeesWrapped.add(new EmployeeWrapper(e));
+            employeesWrapped.add(new MyEmployee(e));
         }
 
-        employeesWrapped.sort(new Comparator<EmployeeWrapper>() {
-            public int compare(EmployeeWrapper a, EmployeeWrapper b) {
-                // return a.fullName.compareTo(b.fullName);
-                return Integer.valueOf(a.yearsWorked).compareTo(Integer.valueOf(b.yearsWorked));
+        employeesWrapped.sort(new Comparator<MyEmployee>() {
+            public int compare(MyEmployee a, MyEmployee b) {
+                return switch (field.toUpperCase()) {
+                    case "FIRSTNAME" -> a.instance.firstName().compareTo(b.instance.firstName());
+                    case "LASTNAME" -> a.instance.lastName().compareTo(b.instance.lastName());
+                    case "FULLNAME" -> a.fullName.compareTo(b.fullName);
+                    case "HIREYEAR" ->
+                        Integer.valueOf(a.instance.hireYear()).compareTo(Integer.valueOf(b.instance.hireYear()));
+                    case "YEARS" -> Integer.valueOf(a.yearsWorked).compareTo(Integer.valueOf(b.yearsWorked));
+                    default -> Integer.valueOf(a.yearsWorked).compareTo(Integer.valueOf(b.yearsWorked));
+                };
             }
         }.reversed());
 
