@@ -32,11 +32,6 @@ public class Player {
 
     public void setLastOption(Options option) {
         lastOption = option;
-        // if (option.equals(Options.HIT)) {
-        // // handle hit
-        // } else if (option.equals(Options.STAND)) {
-        // // handle stand
-        // }
     }
 
     public String getName() {
@@ -57,7 +52,7 @@ public class Player {
         }
         // Check if hand includes an ace and is over 21
         for (var c : hand) {
-            if (c.getFaceValue().equalsIgnoreCase("A") && total > 21) {
+            if (c.getFaceValue().equalsIgnoreCase("A") && total > BlackJack.BLACKJACK) {
                 // change ace value from 11 to 1
                 total -= 10;
             }

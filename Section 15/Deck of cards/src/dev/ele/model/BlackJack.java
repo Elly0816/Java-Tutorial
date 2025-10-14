@@ -13,7 +13,7 @@ public class BlackJack {
     private static String[] names = { "Liam", "Ava", "Noah", "Zoe", "Ethan", "Mia", "Lucas", "Lily", "Mason", "Grace",
             "Oliver", "Chloe", "Elijah", "Ruby", "Henry", "Isla", "Leo", "Nora", "Jack", "Stella" };
     public static final int BLACKJACK = 21;
-    // private int currentPlayerTurnIndex = 0;
+    private int currentPlayerTurnIndex = 0;
     // private boolean shouldPlay;
 
     private BlackJack(List<Player> players) {
@@ -25,6 +25,14 @@ public class BlackJack {
     public static BlackJack createGame(int numberOfPlayers) {
         BlackJack game = new BlackJack(createPlayers(numberOfPlayers));
         return game;
+    }
+
+    public int getCurrentPlayerTurnIndex() {
+        return currentPlayerTurnIndex;
+    }
+
+    public void setNextPlayerTurnIndex() {
+        currentPlayerTurnIndex = (++currentPlayerTurnIndex) % (getNumberOfPlayers());
     }
 
     private static List<Player> createPlayers(int amount) {
@@ -82,7 +90,10 @@ public class BlackJack {
     }
 
     public void dealSingleCard(int playerIndex) {
-        Player player = players.get(playerIndex);
+        dealSingleCard(players.get(playerIndex));
+    }
+
+    public void dealSingleCard(Player player) {
         player.addToHand(deck.getCardFromDeck());
     }
 

@@ -13,10 +13,14 @@ public class GameEngine {
     private BlackJack game;
     private String playerName;
     private boolean isPlaying;
+    private int numberOfPlayers;
     private int currentPlayerTurnIndex = 0;
+    private UserIO userIO;
 
-    public GameEngine(int numberOfPlayers, String playerName) {
+    public GameEngine(int numberOfPlayers, String playerName, UserIO userIO) {
         this.playerName = playerName;
+        this.userIO = userIO;
+        this.numberOfPlayers = numberOfPlayers;
         game = BlackJack.createGame(numberOfPlayers);
         game.addPlayerToGame(new Player(this.playerName, false));
     }
@@ -25,21 +29,33 @@ public class GameEngine {
         game.printPlayers();
     }
 
+    public void resetGame() {
+        System.out.println("\n\nStarting New Game");
+        game = BlackJack.createGame(numberOfPlayers);
+        game.addPlayerToGame(new Player(playerName, false));
+        initGame();
+        currentPlayerTurnIndex = 0;
+    }
+
     public boolean isPlaying() {
         return isPlaying;
     }
 
     public void initGame() {
-        isPlaying = true;
-        game.dealFirstRound();
         Collections.shuffle(game.getPlayers());
+        game.dealFirstRound();
+        isPlaying = true;
     }
 
-    public int getCurrentPlayerTurnIndex() {
+    public BlackJack getGame() {
+        return game;
+    }
+
+    private int getCurrentPlayerTurnIndex() {
         return currentPlayerTurnIndex;
     }
 
-    public void setNextPlayerTurnIndex() {
+    private void setNextPlayerTurnIndex() {
         currentPlayerTurnIndex = (++currentPlayerTurnIndex) % (game.getNumberOfPlayers());
     }
 
@@ -53,65 +69,67 @@ public class GameEngine {
 
     public void play() {
         // Each player should get a turn to pick hit/stand
-        game.printPlayers();
         System.out.println();
         BlackJackResult result = game.checkForWinner();
         result.printBlackJack();
         result.printBust();
         System.out.println();
         Player currentPlayer = game.getPlayers().get(getCurrentPlayerTurnIndex());
-        /**
-         * Players can only play if these two conditions are met
-         * 1) Their total is less than a blackjack
-         * 
-         * 2) Either they've not played at all, or their last move was not a stand
-         */
-        if ((currentPlayer.getLastOption() == null || !currentPlayer.getLastOption().equals(Options.STAND))
-                && currentPlayer.getPlayerTotal() < BlackJack.BLACKJACK) {
+        if (playerCanAct(currentPlayer)) {
 
             System.out.println(currentPlayer.getName() + "'s turn");
+            Random randSleep = new Random();
+
             if (currentPlayer.isBot()) {
+                try {
+                    Thread.sleep(randSleep.nextInt(4000));
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
                 Options choice = botRandomChoice();
                 System.out.println(currentPlayer.getName() + " chose " + choice.name());
                 currentPlayer.setLastOption(choice);
-                if (currentPlayer.getLastOption().equals(Options.HIT)) {
-                    currentPlayer.addToHand(game.getDeck().getCardFromDeck());
+                if (playerLastHit(currentPlayer)) {
+                    game.dealSingleCard(currentPlayer);
                 }
             } else {
-                Options choice = UserIO.getUserOption();
+                Options choice = userIO.getUserOption();
                 System.out.println(currentPlayer.getName() + " chose " + choice.name());
                 currentPlayer.setLastOption(choice);
-                if (currentPlayer.getLastOption().equals(Options.HIT)) {
-                    currentPlayer.addToHand(game.getDeck().getCardFromDeck());
+                if (playerLastHit(currentPlayer)) {
+                    game.dealSingleCard(currentPlayer);
                 }
             }
         }
-        // Display cards
-        // game.printPlayers();
 
-        // After each round, check if who's winning
+        // After each round, check whether to end the game
         if (checkIfAllPlayersBlackJackOrBust() || checkIfAllPlayersStood()) {
             isPlaying = false;
-            System.out.println("Game Over, checking winners...");
-            game.checkForWinner().printDetailedResult();
-            return;
-        }
-        if (!isPlaying) {
-            System.out.println("Game Over, checking winners...");
-            game.checkForWinner().printDetailedResult();
-            return;
         }
         setNextPlayerTurnIndex();
 
     }
 
-    // public void checkForWinner() {
-    // BlackJackResult result = game.checkForWinner();
-    // if (result.blackjack().size() > 0) {
-    // isPlaying = false;
-    // }
-    // result.printDetailedResult();
-    // }
+    private boolean playerLastHit(Player currentPlayer) {
+        return currentPlayer.getLastOption().equals(Options.HIT);
+    }
+
+    public void displayWinner() {
+        System.out.println("Game Over, checking winners...");
+        game.checkForWinner().printDetailedResult();
+    }
+
+    /**
+     * Players can only play if these two conditions are met:
+     * 
+     * 1) Their total is less than a blackjack.
+     * 
+     * 2) Either they've not played at all, or their last move was not a stand.
+     */
+    private boolean playerCanAct(Player currentPlayer) {
+        return (currentPlayer.getLastOption() == null || !currentPlayer.getLastOption().equals(Options.STAND))
+                && currentPlayer.getPlayerTotal() < BlackJack.BLACKJACK;
+    }
 
     private boolean checkIfAllPlayersStood() {
         for (var p : game.getPlayers()) {

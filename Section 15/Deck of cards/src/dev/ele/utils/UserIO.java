@@ -1,19 +1,16 @@
 package dev.ele.utils;
 
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class UserIO {
-    private static Scanner sc;
+    private final Scanner sc = new Scanner(System.in);
 
-    public static void startScanner() {
-        sc = new Scanner(System.in);
-    }
-
-    public static void closeScanner() {
+    public void closeScanner() {
         sc.close();
     }
 
-    public static String getUserName() {
+    public String getUserName() {
         String name = "";
         boolean shouldContinue = true;
         while (shouldContinue) {
@@ -32,7 +29,10 @@ public class UserIO {
                         break;
                     }
                 }
-            } catch (Exception e) {
+            } catch (NoSuchElementException e) {
+                System.out.println(e.getMessage());
+                shouldContinue = true;
+            } catch (IllegalStateException e) {
                 System.out.println(e.getMessage());
                 shouldContinue = true;
             }
@@ -40,7 +40,35 @@ public class UserIO {
         return name;
     }
 
-    public static int getNumberOfOpponents() {
+    public boolean shouldRestart() {
+        System.out.print("Do you want to play again? (Enter 'Y' or 'N') ");
+        boolean shouldContinue = true;
+        boolean shouldRestart = false;
+        while (shouldContinue) {
+            try {
+                shouldContinue = false;
+                String response = sc.nextLine().strip();
+                if (!response.equalsIgnoreCase("y") && !response.equalsIgnoreCase("n")) {
+                    System.out.print("Invalid input\nEnter either Y or N: ");
+                    shouldContinue = true;
+                }
+                if (response.equalsIgnoreCase("y")) {
+                    shouldRestart = true;
+                } else if (response.equalsIgnoreCase("n")) {
+                    shouldRestart = false;
+                }
+            } catch (NoSuchElementException e) {
+                System.out.println(e.getMessage());
+                shouldContinue = true;
+            } catch (IllegalStateException e) {
+                System.out.println(e.getMessage());
+                shouldContinue = true;
+            }
+        }
+        return shouldRestart;
+    }
+
+    public int getNumberOfOpponents() {
         int numberOfOpponents = 0;
         boolean shouldContinue = true;
         while (shouldContinue) {
@@ -61,7 +89,7 @@ public class UserIO {
         return numberOfOpponents;
     }
 
-    public static Options getUserOption() {
+    public Options getUserOption() {
         Options userOption = null;
         boolean shouldContinue = true;
         while (shouldContinue) {
