@@ -1,6 +1,7 @@
 package dev.ele.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -51,12 +52,17 @@ public class BlackJack {
         return deck;
     }
 
-    public List<Player> getPlayers() {
-        return players;
+    public List<Player> getPlayersUnmodifiable() {
+        // return players;
+        return Collections.unmodifiableList(players);
     }
 
     public int getNumberOfPlayers() {
         return players.size();
+    }
+
+    public void shufflePlayers() {
+        Collections.shuffle(players);
     }
 
     /**

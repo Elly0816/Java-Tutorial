@@ -26,7 +26,7 @@ public class UserIO {
     }
 
     public void printPlayers() {
-        List<Player> players = game.getPlayers();
+        List<Player> players = game.getPlayersUnmodifiable();
         System.out.println("--------------Players in game--------------");
         for (var p : players) {
             System.out.println(p);

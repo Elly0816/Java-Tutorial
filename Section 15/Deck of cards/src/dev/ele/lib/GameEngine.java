@@ -1,6 +1,5 @@
 package dev.ele.lib;
 
-import java.util.Collections;
 import java.util.Random;
 
 import dev.ele.model.BlackJack;
@@ -14,7 +13,7 @@ public class GameEngine {
     private String playerName;
     private boolean isPlaying;
     private int numberOfPlayers;
-    private int currentPlayerTurnIndex = 0;
+    // private int currentPlayerTurnIndex = 0;
     private UserIO userIO;
 
     public GameEngine(int numberOfPlayers, String playerName, UserIO userIO) {
@@ -25,16 +24,12 @@ public class GameEngine {
         game.addPlayerToGame(new Player(this.playerName, false));
     }
 
-    // public void displayHands() {
-    // game.printPlayers();
-    // }
-
     public void resetGame() {
         System.out.println("\n\nStarting New Game");
         game = BlackJack.createGame(numberOfPlayers);
         game.addPlayerToGame(new Player(playerName, false));
         initGame();
-        currentPlayerTurnIndex = 0;
+        // currentPlayerTurnIndex = 0;
     }
 
     public boolean isPlaying() {
@@ -42,7 +37,8 @@ public class GameEngine {
     }
 
     public void initGame() {
-        Collections.shuffle(game.getPlayers());
+        game.shufflePlayers();
+        ;
         game.dealFirstRound();
         isPlaying = true;
     }
@@ -51,13 +47,14 @@ public class GameEngine {
         return game;
     }
 
-    private int getCurrentPlayerTurnIndex() {
-        return currentPlayerTurnIndex;
-    }
+    // private int getCurrentPlayerTurnIndex() {
+    // return currentPlayerTurnIndex;
+    // }
 
-    private void setNextPlayerTurnIndex() {
-        currentPlayerTurnIndex = (++currentPlayerTurnIndex) % (game.getNumberOfPlayers());
-    }
+    // private void setNextPlayerTurnIndex() {
+    // currentPlayerTurnIndex = (++currentPlayerTurnIndex) %
+    // (game.getNumberOfPlayers());
+    // }
 
     private Options botRandomChoice() {
         Random rand = new Random();
@@ -69,12 +66,12 @@ public class GameEngine {
 
     public void play() {
         // Each player should get a turn to pick hit/stand
-        System.out.println();
+        // System.out.println();
         // BlackJackResult result = game.checkForWinner();
         // result.printBlackJack();
         // result.printBust();
-        System.out.println();
-        Player currentPlayer = game.getPlayers().get(getCurrentPlayerTurnIndex());
+        // System.out.println();
+        Player currentPlayer = game.getPlayer(game.getCurrentPlayerTurnIndex());
         if (playerCanAct(currentPlayer)) {
 
             System.out.println(currentPlayer.getName() + "'s turn");
@@ -106,7 +103,7 @@ public class GameEngine {
         if (checkIfAllPlayersBlackJackOrBust() || checkIfAllPlayersStood()) {
             isPlaying = false;
         }
-        setNextPlayerTurnIndex();
+        game.setNextPlayerTurnIndex();
 
     }
 
@@ -127,7 +124,7 @@ public class GameEngine {
     }
 
     private boolean checkIfAllPlayersStood() {
-        for (var p : game.getPlayers()) {
+        for (var p : game.getPlayersUnmodifiable()) {
             if (p.getPlayerTotal() < BlackJack.BLACKJACK
                     && (p.getLastOption() == null || p.getLastOption().equals(Options.HIT))) {
                 return false;

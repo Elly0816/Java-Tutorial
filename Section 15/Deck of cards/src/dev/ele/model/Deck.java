@@ -17,18 +17,10 @@ public class Deck {
         System.out.println("Deck shuffled");
     }
 
-    // public void printDeck() {
-    // System.out.println("-----Cards in Deck-----");
-    // Card.printCards(deck);
-    // }
-
-    // public void printDeck(String description, int numberOfRows) {
-    // Card.printCards(description, deck, numberOfRows);
-    // }
-
     public Card getCardFromDeck() {
         if (deck.size() == 0) {
-            return null;
+            this.deck = Card.getStandardDeck();
+            shuffle();
         }
         return deck.remove(deck.size() - 1);
     }
