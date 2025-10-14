@@ -168,21 +168,22 @@ public class BlackJack {
                 }
             }
 
-            if (winners.size() > 1) {
-                // System.out.println(
-                // "There has been a tie between " + (winners.size() + 1) + " players with total
-                // "
-                // + maxBelowBlackJack);
-                // winner.printPlayerCards();
-                for (var p : winners) {
-                    // p.printPlayerCards();
-                }
-            } else {
-                // System.out.println("Player " + players.indexOf(winner) + " has total " +
-                // winner.getPlayerTotal()
-                // + " and is the winner with cards: ");
-                // winner.printPlayerCards();
-            }
+            // if (winners.size() > 1) {
+            // // System.out.println(
+            // // "There has been a tie between " + (winners.size() + 1) + " players with
+            // total
+            // // "
+            // // + maxBelowBlackJack);
+            // // winner.printPlayerCards();
+            // for (var p : winners) {
+            // // p.printPlayerCards();
+            // }
+            // } else {
+            // // System.out.println("Player " + players.indexOf(winner) + " has total " +
+            // // winner.getPlayerTotal()
+            // // + " and is the winner with cards: ");
+            // // winner.printPlayerCards();
+            // }
 
         }
 
