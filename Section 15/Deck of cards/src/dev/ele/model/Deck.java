@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Deck {
 
-    public List<Card> deck;
+    private List<Card> deck;
 
     public Deck() {
         deck = Card.getStandardDeck();
@@ -19,11 +19,11 @@ public class Deck {
 
     public void printDeck() {
         System.out.println("-----Cards in Deck-----");
-        Card.printDeck(deck);
+        Card.printCards(deck);
     }
 
     public void printDeck(String description, int numberOfRows) {
-        Card.printDeck(description, deck, numberOfRows);
+        Card.printCards(description, deck, numberOfRows);
     }
 
     public Card getCardFromDeck() {

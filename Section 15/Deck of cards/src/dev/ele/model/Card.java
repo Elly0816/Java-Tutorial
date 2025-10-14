@@ -64,11 +64,11 @@ public class Card implements Comparable<Card> {
         return deck;
     }
 
-    public static void printDeck(List<Card> cards) {
-        printDeck("Current Deck", cards, 4);
+    public static void printCards(List<Card> cards) {
+        printCards("Current Deck", cards, 4);
     }
 
-    public static void printDeck(String description, List<Card> cards, int rowCount) {
+    public static void printCards(String description, List<Card> cards, int rowCount) {
         System.out.println(description);
         int maxCardsPerRow = cards.size() / rowCount;
         maxCardsPerRow = cards.size() % rowCount == 0 ? maxCardsPerRow : maxCardsPerRow + 1;
