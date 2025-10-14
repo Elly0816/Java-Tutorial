@@ -25,7 +25,7 @@ public class Main {
         Card aceOfHearts = Card.getFaceCard(Card.Suit.HEART, Card.Face.ACE);
         // The static fill() method assigns a value to all entries in the array
         Arrays.fill(cardArray, aceOfHearts);
-        Card.printDeck("Ace of Hearts", Arrays.asList(cardArray), 1);
+        Card.printCards("Ace of Hearts", Arrays.asList(cardArray), 1);
 
         List<Card> cards = new ArrayList<>(52);
 
@@ -37,52 +37,52 @@ public class Main {
         System.out.println("cards.size() = " + cards.size());
 
         List<Card> acesOfHearts = Collections.nCopies(13, aceOfHearts);
-        Card.printDeck("Aces of Hearts", acesOfHearts, 1);
+        Card.printCards("Aces of Hearts", acesOfHearts, 1);
 
         Card kingOfClubs = Card.getFaceCard(Suit.CLUB, Face.KING);
         List<Card> kingsOfClubs = Collections.nCopies(13, kingOfClubs);
-        Card.printDeck("Kings of Clubs", kingsOfClubs, 1);
+        Card.printCards("Kings of Clubs", kingsOfClubs, 1);
 
         // addAll() method on collections adds multiple elements to the end of the
         // collection
         Collections.addAll(cards, cardArray);
         Collections.addAll(cards, cardArray);
-        Card.printDeck("With collections.addAll", cards, 2);
+        Card.printCards("With collections.addAll", cards, 2);
 
         Collections.copy(cards, kingsOfClubs);// Copies content to destination from source. If the destination is
                                               // smaller in size from the source, you get an indexOutOfBounds error. But
                                               // if the destination is larger than the source, it overwrites elements.
                                               // Note that the index of elements stary the same from the source to the
                                               // destination. This operation happens in place of course.
-        Card.printDeck("Card collection with kings copied", cards, 2);
+        Card.printCards("Card collection with kings copied", cards, 2);
 
         cards = List.copyOf(kingsOfClubs); // A copy of the list is returned
-        Card.printDeck(cards);
+        Card.printCards(cards);
 
         List<Card> deck = Card.getStandardDeck();
-        Card.printDeck("This is a standard deck", deck, 4);
+        Card.printCards("This is a standard deck", deck, 4);
 
         // Shuffle method on Collections
         Collections.shuffle(deck);
-        Card.printDeck("This is a shuffled deck", deck, 4);
+        Card.printCards("This is a shuffled deck", deck, 4);
 
         // Sorting with comparable
         Collections.sort(deck);
-        Card.printDeck("This is a sorted deck using the comparable interface", deck, 4);
+        Card.printCards("This is a sorted deck using the comparable interface", deck, 4);
 
         // Sorting with comparator
         Comparator<Card> sorter = Comparator.comparing(Card::getRank).thenComparing(Card::getSuitChar);
         Collections.sort(deck, sorter);
-        Card.printDeck("Standard deck sorted by rank and then suit", deck, 13);
+        Card.printCards("Standard deck sorted by rank and then suit", deck, 13);
         Collections.reverse(deck);
-        Card.printDeck("Standard deck reversed", deck, 13);
+        Card.printCards("Standard deck reversed", deck, 13);
 
         // Creating sublists
         List<Card> kings = new ArrayList<>(deck.subList(4, 8));
-        Card.printDeck("Kings in the deck", kings, 1);
+        Card.printCards("Kings in the deck", kings, 1);
 
         List<Card> tens = new ArrayList<>(deck.subList(16, 20));
-        Card.printDeck("Tens in the deck", tens, 1);
+        Card.printCards("Tens in the deck", tens, 1);
 
         // Operations with sublists
         int subListIndex = Collections.indexOfSubList(deck, tens);// This returns the starting index of a sublist
@@ -125,14 +125,14 @@ public class Main {
         System.out.println("foundIndex: " + secondFoundIndex);
         System.out.println(deck.get(secondFoundIndex));
         System.out.println(deck.get(foundIndex));
-        Card.printDeck(deck);
+        Card.printCards(deck);
 
         // Collections replaceAll
         Card tenOfClubs = Card.getFaceCard(Suit.CLUB, Face.TEN);
         Collections.replaceAll(deck, tenOfClubs, tenOfHearts);
-        Card.printDeck("Tens row", deck.subList(32, 36), 1);
+        Card.printCards("Tens row", deck.subList(32, 36), 1);
         Collections.replaceAll(deck, tenOfHearts, tenOfClubs);
-        Card.printDeck("Tens row", deck.subList(32, 36), 1);
+        Card.printCards("Tens row", deck.subList(32, 36), 1);
 
         if (Collections.replaceAll(deck, tenOfHearts, tenOfClubs)) {
             System.out.println("Tens of hearts replaced with tens of clubs");
@@ -151,21 +151,21 @@ public class Main {
         // Rotate method
         var sortBySuit = Comparator.comparing(Card::getSuitChar).thenComparing(Card::getRank);
         deck.sort(sortBySuit);
-        Card.printDeck("Sorted by Suit and then Rank", deck, 4);
+        Card.printCards("Sorted by Suit and then Rank", deck, 4);
 
         List<Card> copy = new ArrayList<>(deck.subList(0, 13));
-        Card.printDeck("Unrotated List", copy, 1);
+        Card.printCards("Unrotated List", copy, 1);
         Collections.rotate(copy, 2);
-        Card.printDeck("Rotated List with distance 2: ", copy, 1);
+        Card.printCards("Rotated List with distance 2: ", copy, 1);
 
         List<Card> copy2 = new ArrayList<>(deck.subList(0, 13));
-        Card.printDeck("Unrotated List2", copy2, 1);
+        Card.printCards("Unrotated List2", copy2, 1);
         Collections.rotate(copy2, -2);
-        Card.printDeck("Rotated List2 with distance -2: ", copy2, 1);
+        Card.printCards("Rotated List2 with distance -2: ", copy2, 1);
 
         // Swapping elements with Collections.swap()
         List<Card> copy3 = new ArrayList<>(deck.subList(0, 13));
-        Card.printDeck("Before swapping", copy3, 1);
+        Card.printCards("Before swapping", copy3, 1);
         for (int i = 0; i < copy3.size() / 2; i++) {
             // var temp = copy3.get(i);
             // int rearIndex = copy3.size() - 1 - i;
@@ -173,13 +173,13 @@ public class Main {
             // copy3.set(rearIndex, temp);
             Collections.swap(copy3, i, copy3.size() - 1 - i);
         }
-        Card.printDeck("After swapping", copy3, 1);
+        Card.printCards("After swapping", copy3, 1);
 
         // Reversing the collection with Collections.reverse()
         copy3 = new ArrayList<>(deck.subList(0, 13));
-        Card.printDeck("Before reversing", copy3, 1);
+        Card.printCards("Before reversing", copy3, 1);
         Collections.reverse(copy3);
-        Card.printDeck("After reversing", copy3, 1);
+        Card.printCards("After reversing", copy3, 1);
     }
 
     private static int indexOfCard(Card c, List<Card> l) {

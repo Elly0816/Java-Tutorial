@@ -1,9 +1,11 @@
 package dev.ele.utils;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import dev.ele.model.BlackJack;
+import dev.ele.model.Player;
 
 public class UserIO {
     private final Scanner sc = new Scanner(System.in);
@@ -24,7 +26,12 @@ public class UserIO {
     }
 
     public void printPlayers() {
-        game.printPlayers();
+        List<Player> players = game.getPlayers();
+        System.out.println("--------------Players in game--------------");
+        for (var p : players) {
+            System.out.println(p);
+        }
+        System.out.println();
     }
 
     public String getUserName() {

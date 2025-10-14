@@ -16,8 +16,8 @@ public class CalculateScores {
     }
 
     public void printCurrentBlackJackAndBust() {
-        System.out.println();
         game.checkForWinner().printBlackJack();
         game.checkForWinner().printBust();
+        System.out.println();
     }
 }

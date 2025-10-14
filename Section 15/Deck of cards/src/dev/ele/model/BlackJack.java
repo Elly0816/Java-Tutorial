@@ -14,12 +14,10 @@ public class BlackJack {
             "Oliver", "Chloe", "Elijah", "Ruby", "Henry", "Isla", "Leo", "Nora", "Jack", "Stella" };
     public static final int BLACKJACK = 21;
     private int currentPlayerTurnIndex = 0;
-    // private boolean shouldPlay;
 
     private BlackJack(List<Player> players) {
         this.deck = new Deck();
         this.players = players;
-        // shouldPlay = true;
     }
 
     public static BlackJack createGame(int numberOfPlayers) {
@@ -53,14 +51,6 @@ public class BlackJack {
         return deck;
     }
 
-    // public boolean shouldPlay() {
-    // return shouldPlay;
-    // }
-
-    // public void stopGame() {
-    // shouldPlay = false;
-    // }
-
     public List<Player> getPlayers() {
         return players;
     }
@@ -68,14 +58,6 @@ public class BlackJack {
     public int getNumberOfPlayers() {
         return players.size();
     }
-
-    // public int getCurrentPlayerTurnIndex() {
-    // return currentPlayerTurnIndex;
-    // }
-
-    // public void setNextPlayerTurnIndex() {
-    // currentPlayerTurnIndex = (++currentPlayerTurnIndex) % (getNumberOfPlayers());
-    // }
 
     /**
      * 
@@ -111,12 +93,12 @@ public class BlackJack {
         return players.get(playerIndex);
     }
 
-    public void printPlayers() {
-        System.out.println("-----Players in game-----");
-        for (var p : players) {
-            System.out.println(p);
-        }
-    }
+    // public void printPlayers() {
+    // System.out.println("-----Players in game-----");
+    // for (var p : players) {
+    // System.out.println(p);
+    // }
+    // }
 
     /**
      * 
@@ -129,24 +111,14 @@ public class BlackJack {
         List<Player> winners = new ArrayList<>();
         List<Player> busts = new ArrayList<>();
         boolean foundWinner = false;
-        // boolean foundBust = false;
         for (var p : players) {
             // check for players with rank total over 21
             int playerTotal = p.getPlayerTotal();
             if (playerTotal == BLACKJACK) {
-                // System.out.println(
-                // "player " + players.indexOf(p) + " had total " + playerTotal
-                // + " and has blackjack with cards: ");
-                // p.printPlayerCards();
                 blackJacks.add(p);
                 foundWinner = true;
             } else if (playerTotal > BLACKJACK) {
-                // System.out
-                // .println("player " + players.indexOf(p) + " had total " + playerTotal
-                // + " and busts with cards: ");
-                // p.printPlayerCards();
                 busts.add(p);
-                // foundBust = true;
             }
         }
         // If no blackjack, find the player with the highest total;
@@ -160,31 +132,15 @@ public class BlackJack {
                     winner = p;
                 }
             }
-            winners.add(winner);
+            if (winner != null) {
+                winners.add(winner);
+            }
             // Check for multiple winners
             for (var p : players) {
                 if (winner.getPlayerTotal() == p.getPlayerTotal() && !p.equals(winner)) {
                     winners.add(p);
                 }
             }
-
-            // if (winners.size() > 1) {
-            // // System.out.println(
-            // // "There has been a tie between " + (winners.size() + 1) + " players with
-            // total
-            // // "
-            // // + maxBelowBlackJack);
-            // // winner.printPlayerCards();
-            // for (var p : winners) {
-            // // p.printPlayerCards();
-            // }
-            // } else {
-            // // System.out.println("Player " + players.indexOf(winner) + " has total " +
-            // // winner.getPlayerTotal()
-            // // + " and is the winner with cards: ");
-            // // winner.printPlayerCards();
-            // }
-
         }
 
         List<Player> remainingPlayers = new ArrayList<>();

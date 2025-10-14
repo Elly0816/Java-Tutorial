@@ -60,17 +60,6 @@ public class Player {
         return total;
     }
 
-    public void printPlayerCards() {
-        for (var c : hand) {
-            System.out.print(c + " ");
-        }
-        System.out.println();
-    }
-
-    public void printPlayer() {
-        System.out.println(this);
-    }
-
     @Override
     public String toString() {
         return name + ": " + hand + ", total: " + getPlayerTotal();
