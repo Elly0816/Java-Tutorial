@@ -3,11 +3,28 @@ package dev.ele.utils;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
+import dev.ele.model.BlackJack;
+
 public class UserIO {
     private final Scanner sc = new Scanner(System.in);
+    private BlackJack game;
 
     public void closeScanner() {
         sc.close();
+    }
+
+    public void setGame(BlackJack game) {
+        if (this.game == null && game != null) {
+            this.game = game;
+        }
+    }
+
+    public void removeGame() {
+        this.game = null;
+    }
+
+    public void printPlayers() {
+        game.printPlayers();
     }
 
     public String getUserName() {

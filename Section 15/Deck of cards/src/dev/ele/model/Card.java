@@ -5,9 +5,9 @@ import java.util.List;
 import java.util.Objects;
 
 public class Card implements Comparable<Card> {
-    private Suit suit;
-    private Face face;
-    private int rank;
+    private final Suit suit;
+    private final Face face;
+    private final int rank;
 
     private Card(Suit suit, Face face) {
         this.suit = suit;

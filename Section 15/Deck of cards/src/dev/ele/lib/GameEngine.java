@@ -25,9 +25,9 @@ public class GameEngine {
         game.addPlayerToGame(new Player(this.playerName, false));
     }
 
-    public void displayHands() {
-        game.printPlayers();
-    }
+    // public void displayHands() {
+    // game.printPlayers();
+    // }
 
     public void resetGame() {
         System.out.println("\n\nStarting New Game");
@@ -70,9 +70,9 @@ public class GameEngine {
     public void play() {
         // Each player should get a turn to pick hit/stand
         System.out.println();
-        BlackJackResult result = game.checkForWinner();
-        result.printBlackJack();
-        result.printBust();
+        // BlackJackResult result = game.checkForWinner();
+        // result.printBlackJack();
+        // result.printBust();
         System.out.println();
         Player currentPlayer = game.getPlayers().get(getCurrentPlayerTurnIndex());
         if (playerCanAct(currentPlayer)) {
@@ -112,11 +112,6 @@ public class GameEngine {
 
     private boolean playerLastHit(Player currentPlayer) {
         return currentPlayer.getLastOption().equals(Options.HIT);
-    }
-
-    public void displayWinner() {
-        System.out.println("Game Over, checking winners...");
-        game.checkForWinner().printDetailedResult();
     }
 
     /**
