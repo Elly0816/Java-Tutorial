@@ -26,8 +26,8 @@ public class Card implements Comparable<Card> {
         return comparisonValue(this).compareTo(comparisonValue(other));
     }
 
-    private Integer comparisonValue(Card c) {
-        return c.rank + c.getSuitChar();
+    private String comparisonValue(Card c) {
+        return c.rank + " " + c.getSuitChar();
     }
 
     public char getSuitChar() {

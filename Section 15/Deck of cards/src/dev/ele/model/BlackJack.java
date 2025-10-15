@@ -140,11 +140,12 @@ public class BlackJack {
             }
             if (winner != null) {
                 winners.add(winner);
-            }
-            // Check for multiple winners
-            for (var p : players) {
-                if (winner.getPlayerTotal() == p.getPlayerTotal() && !p.equals(winner)) {
-                    winners.add(p);
+
+                // Check for multiple winners
+                for (var p : players) {
+                    if (winner.getPlayerTotal() == p.getPlayerTotal() && !p.equals(winner)) {
+                        winners.add(p);
+                    }
                 }
             }
         }
