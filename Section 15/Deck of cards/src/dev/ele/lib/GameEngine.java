@@ -38,7 +38,6 @@ public class GameEngine {
 
     public void initGame() {
         game.shufflePlayers();
-        ;
         game.dealFirstRound();
         isPlaying = true;
     }
