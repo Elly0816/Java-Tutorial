@@ -2,6 +2,7 @@ package dev.ele.model;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 public class Contact {
@@ -60,5 +61,47 @@ public class Contact {
         currCon.emails = new HashSet<>(emails);
         currCon.phones = new HashSet<>(phones);
         return currCon;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null)
+            return false;
+        if (getClass() != o.getClass())
+            return false;
+
+        Contact other = (Contact) o;
+
+        return getName().equals(other.getName());
+    }
+
+    @Override
+    public int hashCode() {
+        return 31 * getName().hashCode();
+    }
+
+    public void addEmail(String companyName) {
+        if (companyName == null)
+            return;
+        String[] names = name.split(" ");
+        String email = "%c%s@%s.com".formatted(name.charAt(0), names[names.length - 1],
+                companyName.replaceAll(" ", "").toLowerCase());
+
+        if (!emails.add(email)) {
+            System.out.println(name + " already has email " + email);
+        } else {
+            System.out.println(name + " now has email " + email);
+        }
+    }
+
+    public void replaceEmailIfExists(String oldEmail, String newEmail) {
+        if (emails.contains(oldEmail)) {
+            Set<String> newEmails = new HashSet<>(emails);
+            newEmails.remove(oldEmail);
+            newEmails.add(newEmail);
+            emails = newEmails;
+        }
     }
 }

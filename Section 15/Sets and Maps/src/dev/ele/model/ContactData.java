@@ -3,6 +3,7 @@ package dev.ele.model;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 
 public class ContactData {
 
@@ -32,39 +33,58 @@ public class ContactData {
             """;
 
     public List<Contact> getData(String type) {
-        if (type.equalsIgnoreCase("phone")) {
-            return withPhone(phoneData);
-        }
 
-        if (type.equalsIgnoreCase("email")) {
-            return withEmail(emailData);
+        boolean userWantsPhone = type.equalsIgnoreCase("phone");
+        boolean userWantsEmail = type.equalsIgnoreCase("email");
+        if (type == null || !(userWantsPhone || userWantsEmail)) {
+            return null;
         }
-        System.out.println("Invalid type");
-        return null;
+        Scanner scanner = new Scanner(userWantsPhone ? phoneData : emailData);
+        List<Contact> contactList = new ArrayList<>();
+        while (scanner.hasNext()) {
+            String[] data = scanner.nextLine().split(",");
+            if (userWantsPhone) {
+                contactList.add(new Contact(data[0].trim(), Long.parseLong(data[1].trim())));
+            }
+            if (userWantsEmail) {
+                contactList.add(new Contact(data[0].trim(), data[1].trim()));
+            }
+        }
+        scanner.close();
+        return contactList;
+        // if (getPhone) {
+        // return withPhone(phoneData);
+        // }
+
+        // if (getEmail) {
+        // return withEmail(emailData);
+        // }
+        // System.out.println("Invalid type");
+        // return null;
     }
 
-    private List<Contact> withPhone(String phoneString) {
-        String[] phones = phoneString.split("\n");
-        List<String> phoneStringAsList = Arrays.asList(phones);
-        List<Contact> contacts = new ArrayList<>();
-        for (var data : phoneStringAsList) {
-            String name = data.trim().split(", ")[0];
-            long phone = Long.parseLong(data.trim().split(", ")[1]);
-            contacts.add(new Contact(name, phone));
-        }
-        return contacts;
-    }
+    // private List<Contact> withPhone(String phoneString) {
+    // String[] phones = phoneString.split("\n");
+    // List<String> phoneStringAsList = Arrays.asList(phones);
+    // List<Contact> contacts = new ArrayList<>();
+    // for (var data : phoneStringAsList) {
+    // String name = data.trim().split(", ")[0];
+    // long phone = Long.parseLong(data.trim().split(", ")[1]);
+    // contacts.add(new Contact(name, phone));
+    // }
+    // return contacts;
+    // }
 
-    private List<Contact> withEmail(String emailString) {
-        String[] emails = emailString.split("\n");
-        List<String> emailStringAsList = Arrays.asList(emails);
-        List<Contact> contacts = new ArrayList<>();
-        for (var data : emailStringAsList) {
-            String name = data.trim().split(", ")[0];
-            String email = data.trim().split(", ")[1];
-            contacts.add(new Contact(name, email));
-        }
-        return contacts;
-    }
+    // private List<Contact> withEmail(String emailString) {
+    // String[] emails = emailString.split("\n");
+    // List<String> emailStringAsList = Arrays.asList(emails);
+    // List<Contact> contacts = new ArrayList<>();
+    // for (var data : emailStringAsList) {
+    // String name = data.trim().split(", ")[0];
+    // String email = data.trim().split(", ")[1];
+    // contacts.add(new Contact(name, email));
+    // }
+    // return contacts;
+    // }
 
 }
