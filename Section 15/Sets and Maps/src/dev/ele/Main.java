@@ -14,8 +14,8 @@ import dev.ele.model.Task.Status;
 public class Main {
     public static void main(String[] args) {
 
-        Set<Task> tasksByAnn = Task.getTasks(Employees.ANN);
-        printData("Ann's Tasks", tasksByAnn);
+        Set<Task> tasksByBob = Task.getTasks(Employees.BOB);
+        printData("Bob's Tasks", tasksByBob);
         Set<Task> allTasks = Task.getTasks();
         printData("All Tasks", allTasks);
         // System.out.println("Working dir: " + System.getProperty("user.dir"));
