@@ -2,7 +2,6 @@ package dev.ele.model;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
@@ -13,10 +12,10 @@ import dev.ele.model.Task.Status;
 
 public class TaskData {
 
-    private static String allTasks;
-    private static String annsTasks;
-    private static String bobsTasks;
-    private static String carolsTasks;
+    // private static String allTasks;
+    // private static String annsTasks;
+    // private static String bobsTasks;
+    // private static String carolsTasks;
     private static final String FILE_PATH = "dev/ele/data/SetsOperationsData.csv";
 
     public static Set<Task> getTasks(Employees name) {
@@ -70,13 +69,13 @@ public class TaskData {
         } catch (FileNotFoundException e) {
             System.err.println(e.getMessage());
         }
-        switch (nameOrAll.toUpperCase()) {
-            case "ALL" -> allTasks = tasks.toString();
-            case "ANN" -> annsTasks = tasks.toString();
-            case "BOB" -> bobsTasks = tasks.toString();
-            case "CAROL" -> carolsTasks = tasks.toString();
-            default -> System.out.println("default case");
-        }
+        // switch (nameOrAll.toUpperCase()) {
+        // case "ALL" -> allTasks = tasks.toString();
+        // case "ANN" -> annsTasks = tasks.toString();
+        // case "BOB" -> bobsTasks = tasks.toString();
+        // case "CAROL" -> carolsTasks = tasks.toString();
+        // default -> System.out.println("default case");
+        // }
         long finishTime = System.nanoTime();
         System.out.println("It took " + (finishTime - startTime) + " nano seconds to read data");
         return tasks;
