@@ -1,7 +1,6 @@
 package dev.ele.model;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -11,7 +10,7 @@ public class ContactData {
 
     List<Contact> contactData = new ArrayList<>();
 
-    private final String phoneData = """
+    private static final String phoneData = """
             Charlie Brown, 33344455555
             Maid Marlon, 1234567890
             Mickey Mouse, 9998887777
@@ -23,7 +22,7 @@ public class ContactData {
             Mickey Mouse, 9998887777
             """;
 
-    private final String emailData = """
+    private static final String emailData = """
             Mickey Mouse, mckmouse@gmail.com
             Mickey Mouse, micky1@aws.com
             Minnie Mouse, minnie@verizon.net
@@ -32,7 +31,7 @@ public class ContactData {
             Daffy Duck, daffy@google.com
             """;
 
-    public List<Contact> getData(String type) {
+    public static List<Contact> getData(String type) {
 
         boolean userWantsPhone = type.equalsIgnoreCase("phone");
         boolean userWantsEmail = type.equalsIgnoreCase("email");

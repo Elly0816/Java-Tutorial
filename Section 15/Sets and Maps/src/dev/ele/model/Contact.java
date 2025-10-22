@@ -41,7 +41,7 @@ public class Contact {
 
     @Override
     public String toString() {
-        return "\nname: " + name + ", emails: " + emails + ", phones: " + phones;
+        return name + ", " + emails + ", " + phones + "\n";
     }
 
     public Contact mergeContactData(Contact contact) {
