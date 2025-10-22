@@ -12,7 +12,7 @@ public class ContactData {
 
     private static final String phoneData = """
             Charlie Brown, 33344455555
-            Maid Marlon, 1234567890
+            Maid Marion, 1234567890
             Mickey Mouse, 9998887777
             Mickey Mouse, 1247489758
             Minnie Mouse, 4567805666

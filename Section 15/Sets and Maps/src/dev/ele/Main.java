@@ -24,10 +24,8 @@ public class Main {
         eleazar = eleazar.mergeContactData(eleazar2);
         System.out.println(eleazar);
 
-        ContactData contactData = new ContactData();
-
-        List<Contact> emails = contactData.getData("email");
-        List<Contact> phones = contactData.getData("phone");
+        List<Contact> emails = ContactData.getData("email");
+        List<Contact> phones = ContactData.getData("phone");
 
         printData("Email List", emails);
         printData("Phone List", phones);
