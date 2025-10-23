@@ -95,8 +95,10 @@ public class TreeSetMain {
         fullSet.forEach(System.out::println);
         System.out.println("-----------------------------");
         System.out.println("-----------------------------");
-        // Getting a subset view of a set ending at headSet(e) (elements are strictly
-        // less than e) or starting at tailSet(e) (elements are greater than or equal to
+        // Getting a subset view of a set ending at e with headSet(e) (elements are
+        // strictly
+        // less than e) or starting at e with tailSet(e) (elements are greater than or
+        // equal to
         // e)
         Contact marion = new Contact("Maid Marion");
         var headSet = fullSet.headSet(marion);
@@ -109,5 +111,6 @@ public class TreeSetMain {
         Contact linus = new Contact("Linus Van Pelt");
         var subset = fullSet.subSet(linus, marion);
         subset.forEach(System.out::println);
+
     }
 }
