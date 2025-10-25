@@ -1,9 +1,7 @@
 package dev.ele.model;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.security.InvalidParameterException;
 import java.util.Collections;
-import java.util.List;
 import java.util.NavigableSet;
 import java.util.Objects;
 import java.util.TreeSet;
@@ -17,6 +15,13 @@ public class Theatre {
     // private NavigableSet<Seat> seats = new TreeSet<>(sorter);
 
     public Theatre(String name, int numberOfRows, int totalNumberOfSeats) {
+        if (name == null) {
+            throw new Error("Name cannot be null");
+        }
+        if (numberOfRows < 1 || totalNumberOfSeats < 1) {
+            throw new InvalidParameterException(
+                    "You have to have at least 1 total number of seats and at least one number of rows");
+        }
         theatreName = name;
         this.seatsInRow = totalNumberOfSeats / numberOfRows;
         generateSeats(numberOfRows);
@@ -24,8 +29,7 @@ public class Theatre {
 
     private void generateSeats(int numberOfRows) {
         if (numberOfRows > 26 || numberOfRows < 1) {
-            System.err.println("Invalid number of seats!");
-            return;
+            throw new InvalidParameterException("Invalid number of rows!");
         }
         int start = (int) 'A';// unicode for A
         int end = start + numberOfRows;
@@ -69,66 +73,79 @@ public class Theatre {
         return seat;
     }
 
-    public NavigableSet<Seat> reserveSeats(int numberOfReservations, char rowFromS, char rowToS, int seatFrom,
-            int seatTo) {
-        char rowFrom = Character.toUpperCase(rowFromS);
-        char rowTo = Character.toUpperCase(rowToS);
+    public boolean validateSeats(char rowFrom, char rowTo, int seatFrom, int seatTo) {
         if (!(Character.isAlphabetic(rowFrom) && Character.isAlphabetic(rowTo)) || rowFrom < seats.first().row
                 || rowTo > seats.last().row) {
             System.err.println("Invalid rows");
-            return null;
+            return false;
         }
         if (seatFrom < 1 || seatFrom > seatsInRow || seatTo > seatsInRow || seatTo < 1) {
             System.err.println("Invalid seat Numbers");
+            return false;
+        }
+        return true;
+    }
+
+    public NavigableSet<Seat> reserveSeats(int numberOfReservations, char rowFromS, char rowToS, int seatFrom,
+            int seatTo) {
+        char rowFrom = Character.toUpperCase(rowFromS);
+        char rowTo = (char) Math.min(Character.toUpperCase(rowToS), seats.last().row);
+
+        if (!validateSeats(rowFrom, rowTo, seatFrom, seatTo)) {
             return null;
         }
-        Seat startSeat = new Seat(rowFrom, seatFrom);
-        Seat endSeat = new Seat(rowTo, seatTo);
-        NavigableSet<Seat> seatsCopy = new TreeSet<>(seats).subSet(startSeat, true, endSeat, true);
-        seatsCopy.removeAll(getReservedSeats());
-        if (seatsCopy.size() < numberOfReservations) {
-            System.out.println("There are only " + seatsCopy.size() + " seats available");
+
+        if (rowFrom > rowTo || (rowFrom <= rowTo && seatFrom > seatTo)) {
+            System.out.println("Invalid seat order");
             return null;
         }
-        Seat[] seatsArray = seatsCopy.toArray(new Seat[seatsCopy.size()]);
-        int start = 0;
-        int i = start;
-        List<Seat> candidateSeats = new ArrayList<>();
-        while ((seatsArray.length - start >= numberOfReservations)
-                && candidateSeats.size() < numberOfReservations && i < seatsArray.length) {
-            // check if seats are neither on the same row nor have consecutive numbers
-            if (i + 1 < seatsArray.length && (seatsArray[i].row != seatsArray[i + 1].row
-                    || seatsArray[i].number + 1 != seatsArray[i + 1].number)) {
-                // if (i + 1 < seatsArray.length && seatsArray[i].compareTo(seatsArray[i + 1]) >
-                // 1) {
-                start++;
-                i = start;
-                candidateSeats = new ArrayList<>();
-                continue;
+
+        int currRow = rowFrom;
+        NavigableSet<Seat> candidateSeats = null;
+        while (currRow <= rowTo) {
+            NavigableSet<Seat> seatsInRow = seats.subSet(new Seat((char) currRow, seatFrom), true,
+                    new Seat((char) currRow, seatTo), true);
+            int count = 0;
+            Seat start = null;
+            for (var s : seatsInRow) {
+                if (count >= numberOfReservations) {
+                    break;
+                }
+                if (s.isReserved) {
+                    count = 0;
+                    start = null;
+                    continue;
+                }
+                start = start == null ? s : start;
+                count++;
             }
-            if (seatsArray[i].number > seatTo || seatsArray[i].number < seatFrom) {
-                i++;
-                continue;
+            if (count == numberOfReservations && start != null) {
+                candidateSeats = seats.subSet(start, true, new Seat((char) currRow, start.number + count), false);
+                break;
             }
-            candidateSeats.add(seatsArray[i]);
-            i++;
+            currRow++;
         }
-        if (candidateSeats.size() == numberOfReservations) {
-            for (var s : candidateSeats) {
-                reserveSeat(s.row, s.number);
-            }
-            return new TreeSet<>(candidateSeats);
+        if (candidateSeats != null) {
+            candidateSeats.forEach((s) -> reserveSeat(s.row, s.number));
+            // candidateSeats.forEach(System.out::println);
         } else {
-            System.out.println("Could not find enough contiguous seats");
-            return null;
+            System.out.println(
+                    numberOfReservations + " seats unavailable from " + new Seat((char) rowFrom, seatFrom) + " to "
+                            + new Seat((char) rowTo, seatTo));
         }
+        return candidateSeats;
     }
 
     public Seat getSeat(char row, int number) {
-        Seat seat1 = new Seat(row, number);
-        Seat seat2 = seats.last();
-        NavigableSet<Seat> subset = seats.subSet(seat1, true, seat2, true);
-        return subset.isEmpty() ? null : subset.first();
+        for (var s : seats) {
+            if ((int) s.row > (int) row) {
+                return null;
+            }
+            if (s.row == Character.toUpperCase(row) && number == s.number) {
+                return s;
+            }
+        }
+        return null;
     }
 
     public Seat getSeat(Seat seat) {
